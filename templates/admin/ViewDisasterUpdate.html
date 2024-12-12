@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <title>Disater updates</title>
+</head>
+<body>
+      <h1>Disaster Updates</h1>
+    
+        <table border="1">
+          <tr>
+            <td>disaster</td>
+            <td>details</td>
+            <td>location</td>
+            <td>weather</td>
+          <td colspan="2">Actions</td>
+          </tr>
+          {%for i in val%}
+          <tr>
+            <td>{{i.Disaster}} </td>
+            <td> {{i.Details}}</td>
+            <td>{{i.Location}} </td>
+            <td>{{i.Weather}} </td>
+            <td> <a href="">EDIT</a></td>
+            <td> <a href="">DELETE</a></td>             
+          </tr>
+          {%endfor%}
+        </table>
+</body>
+</html>

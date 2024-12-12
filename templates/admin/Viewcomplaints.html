@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <title>complaint</title>
+</head>
+<body>
+      <h1>complaint</h1>
+    
+        <table border="1">
+          <tr>
+            <td>complaint</td>
+            <td>reply</td>
+            <td>date</td>
+            <td>user</td>
+            <td colspan="2">Actions</td>
+          </tr>
+          {% for i in val %}
+          <tr>
+            <td>{{i.Complaint}} </td>
+            <td> {{i.Reply}}</td>
+            <td>{{i.Date}} </td>
+            <td>{{i.USER.Name}} </td>
+            <td> <a href="">EDIT</a></td>
+            <td> <a href="">DELETE</a></td>             
+          </tr>
+          {%endfor%}
+        </table>
+</body>
+</html>

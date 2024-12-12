@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <title>User</title>
+</head>
+<body>
+      <h1>User</h1>
+    
+        <table border="1">
+          <tr>
+            <td>Name</td>
+            <td>Age</td>
+            <td>Gender</td>
+            <td>Phone</td>
+            <td>Email</td>
+            <td>address</td>
+            {%for i in val%}
+            <tr>
+              <td>{{i.Name}} </td>
+              <td> {{i.age}}</td>
+              <td>{{i.Gender}} </td>
+              <td>{{i.Phone}} </td>
+              <td>{{i.Email}} </td>
+              <td>{{i.Address}} </td>
+              <td> <a href="">EDIT</a></td>
+              <td> <a href="">DELETE</a></td>             
+            
+            {%endfor%}
+          </tr>
+        </table>
+</body>
+</html>

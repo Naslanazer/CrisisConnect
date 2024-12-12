@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <title>manage NGO</title>
+</head>
+<body>
+      <h1> manage NGO</h1>
+    
+        <table border="1">
+          <tr>
+           
+            <td>Name</td>
+            <td>Email</td>
+            <td>Service</td>
+            <td>Specialization</td>
+            <td colspan="2">Actions</td>
+          </tr>
+          {%for i in val%}
+          <tr>
+            <td>{{i.Name}} </td>
+            <td> {{i.Email}}</td>
+            <td>{{i.Service}} </td>
+            <td>{{i.Specialization}} </td>
+            <td> <a href="">EDIT</a></td>
+            <td> <a href="">DELETE</a></td>             
+          </tr>
+          {%endfor%}
+        </table>
+</body>
+</html>

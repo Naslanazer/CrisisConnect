@@ -17,19 +17,21 @@
             <td>address</td>
             <td>Skill</td>
             <td>Status</td>
-
+            <td colspan="2">Actions</td>
           </tr>
+          {%for i in val%}
           <tr>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td> 
-            <td> </td>            
-           
+            <td>{{i.Name}} </td>
+            <td> {{i.Age}}</td>
+            <td>{{i.Phone}} </td>
+            <td>{{i.Email}} </td>
+            <td>{{i.address}} </td>
+            <td>{{i.skill}} </td>
+            <td>{{i.Status}} </td>
+            <td> <a href="">EDIT</a></td>
+            <td> <a href="">DELETE</a></td>             
           </tr>
+          {%endfor%}
         </table>
 </body>
 </html>

@@ -11,11 +11,15 @@
           <tr>
             <td>skill</td>
           </tr>
+          {% for i in val %}
           <tr>
-            <td> </td>
-          </tr>
-          <tr>
-            <td><a href="addskill">add new skill</a></td>
+            <td>{{i.skill}} </td>
+              <td> <a href="">EDIT</a></td>
+            <td><a href="/delete_skill/{{i.id}}">DELETE</a></td> 
+            </tr>
+            {%endfor%}
+             <tr>        
+            <td><a href="addskill">add new skill</a></td>          
           </tr>
         </table>
 </body>

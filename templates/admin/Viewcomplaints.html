@@ -13,7 +13,6 @@
             <td>reply</td>
             <td>date</td>
             <td>user</td>
-            <td colspan="2">Actions</td>
           </tr>
           {% for i in val %}
           <tr>
@@ -21,8 +20,6 @@
             <td> {{i.Reply}}</td>
             <td>{{i.Date}} </td>
             <td>{{i.USER.Name}} </td>
-            <td> <a href="">EDIT</a></td>
-            <td> <a href="">DELETE</a></td>             
           </tr>
           {%endfor%}
         </table>

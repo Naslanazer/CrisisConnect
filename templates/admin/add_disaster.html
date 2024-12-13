@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster</title>
+</head>
+<body>
+    <form method="post">
+        {%csrf_token%}
+    <table>
+        <tr>
+            <td>Disaster</td>
+            <td><input type="text" name="Disaster"></td>
+        </tr>
+        <tr>
+            <td>details</td>
+            <td><input type="text" name="Details"></td>
+        </tr>
+        <tr>
+            <td>location</td>
+            <td><input type="text" name="Location"></td>
+        </tr>
+        <tr>
+            <td>weather</td>
+            <td><input type="text" name="Weather"></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Submit">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

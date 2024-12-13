@@ -14,14 +14,18 @@
             <td>Email</td>
             <td>donation</td>
             <td>date</td>
+            <td colspan="2">Actions</td>
           </tr>
+          {%for i in val%}
           <tr>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>            
+            <td>{{i.Name}} </td>
+            <td> {{i.phone}}</td>
+            <td>{{i.Email}} </td>
+            <td>{{i.donation}} </td>
+            <td>{{i.date}} </td>
+            <td> <a href="">DELETE</a></td>             
           </tr>
+          {%endfor%}
         </table>
 </body>
 </html>

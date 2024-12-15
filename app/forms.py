@@ -11,3 +11,9 @@ class resourcesForm(forms.ModelForm):
     class Meta:
         model= ResourceTable
         fields=['Name','Details','Quantity','Date']
+
+
+class NGORegForm(forms.ModelForm):
+    class Meta:
+        model= NGOTable
+        fields=['Name','Email','Phone','Service', 'Specialization']

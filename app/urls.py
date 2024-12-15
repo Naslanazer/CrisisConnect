@@ -5,7 +5,8 @@ from app.views import *
 urlpatterns = [
 
     # //////////////////////////// ADMIN //////////////////////////////////
-    path('', LoginPage.as_view(), name="login"),
+    path('', signup.as_view(), name="signup"),
+    path('login', LoginPage.as_view(), name="login"),
     path('viewcomplaints', Viewcomplaints.as_view(), name="complaint"),
     path('ManageNGO', ManageNGO.as_view(), name="addnmanageNGO"),
     path('delete_ngo/<int:id>', DeleteNgo.as_view(), name="delete_ngo"),
@@ -27,6 +28,7 @@ urlpatterns = [
     path('delete_skill/<int:id>', DltSkill.as_view(), name="delete_skill"),
     path('addskill', Addskill.as_view(), name="addskill"),
     path('editSkill/<int:id>', editSkill.as_view(), name="EditSkill"),
+
 
     # //////////////////////////// NGO //////////////////////////////////
 

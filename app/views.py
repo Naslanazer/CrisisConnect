@@ -5,11 +5,31 @@ from django.shortcuts import render
 from django.views import View
 
 from app.models import *
-from.forms import disasterForm, resourcesForm
+from.forms import *
 
 # Create your views here.
 
 # ///////////////////////////////////// ADMIN ////////////////////////////////////
+
+
+
+class signup(View):
+    def get(self, request):
+        return render(request, "signup.html")
+    def post(self, request):
+        form = NGORegForm(request.POST)
+        if form.is_valid():
+            f=form.save(commit=False)
+            obj = LoginTable.objects.create(
+                Username=request.POST['username'],
+                Password=request.POST['password'],
+                Type="pending"
+            )
+            f.LOGIN=obj
+            f.save()
+            return HttpResponse('''<script>alert("registered successfully");window.location="/"</script>''')
+   
+    
 
 class LoginPage(View):
     def get(self, request):
@@ -71,7 +91,7 @@ class editresource(View):
     def get(self, request,id):
         c= ResourceTable.objects.get(id=id)
         print(c)
-        return render(request, "admin/edit_resource.html",{'c':c})
+        return render(request, "admin/edit_resource.html",{'c':c, 'date': str(c.Date)})
     def post(self, request,id):
         obj = ResourceTable.objects.get(id=id)
         form = resourcesForm(request.POST, instance=obj)

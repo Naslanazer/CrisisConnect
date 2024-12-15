@@ -15,15 +15,15 @@
         </tr>
         <tr>
             <td>details</td>
-            <td><input type="text" name="details" value="{{c.Details}}"></td>
+            <td><input type="text" name="Details" value="{{c.Details}}"></td>
         </tr>
         <tr>
             <td>quantity</td>
-            <td><input type="text" name="quantity" value="{{c.Quantity}}"></td>
+            <td><input type="text" name="Quantity" value="{{c.Quantity}}" required pattern="[0-9]{0,3}"></td>
         </tr>
         <tr>
             <td>date</td>
-            <td><input type="text" name="date" value="{{c.Date}}"></td>
+            <td><input type="date" name="Date" value="{{date}}"></td>
         </tr>
         <tr>
             <td>

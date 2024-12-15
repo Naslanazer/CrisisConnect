@@ -32,6 +32,7 @@ class NGOTable(models.Model):
     LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE)
     Name= models.CharField(max_length=30, null=True, blank=True)
     Email= models.CharField(max_length=20, null=True, blank=True)
+    Phone= models.BigIntegerField(null=True, blank=True)
     Service= models.CharField(max_length=20, null=True, blank=True)
     Specialization= models.CharField(max_length=20, null=True, blank=True)
     

@@ -1,0 +1,103 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f4ed;
+    color: #4d3c30;
+    line-height: 1.6;
+  }
+  
+  /* Container for Signup Page */
+  .signup-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f4ed;
+  }
+  
+  /* Info Section (Left) */
+  .info-section {
+    flex: 1;
+    padding: 20px;
+    text-align: left;
+  }
+  
+  .info-section h2 {
+    font-size: 1.8rem;
+    color: #4d3c30;
+  }
+  
+  .info-section p {
+    margin: 10px 0;
+  }
+  
+  .info-section a {
+    color: #d9aa68;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .info-section a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Form Section (Right) */
+  .form-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #e4d3bc;
+    border-radius: 10px;
+  }
+  
+  .form-section h2 {
+    text-align: center;
+    color: #4d3c30;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .form-section form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-section input {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #d9aa68;
+    border-radius: 5px;
+    background-color: #f9f4ed;
+  }
+  
+  .radio-group {
+    margin-bottom: 15px;
+    font-size: 1rem;
+  }
+  
+  .radio-group p {
+    margin-bottom: 10px;
+  }
+  
+  .radio-group label {
+    margin-right: 10px;
+  }
+  
+  .form-section button {
+    padding: 10px;
+    background-color: #d9aa68;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .form-section button:hover {
+    background-color: #b88a4e;
+  }
+  

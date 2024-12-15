@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.views import View
 
 from app.models import *
-from.forms import disasterForm
+from.forms import disasterForm, resourcesForm
 
 # Create your views here.
 
@@ -66,6 +66,19 @@ class ViewResource(View):
     def get(self, request):
         obj=ResourceTable.objects.all()
         return render(request, "admin/ViewResources.html",{'val':obj})
+
+class editresource(View):
+    def get(self, request,id):
+        c= ResourceTable.objects.get(id=id)
+        print(c)
+        return render(request, "admin/edit_resource.html",{'c':c})
+    def post(self, request,id):
+        obj = ResourceTable.objects.get(id=id)
+        form = resourcesForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('''<script>alert("added successfully");window.location="/resource"</script>''')
+   
     
 class ViewVolunteers(View):
     def get(self, request):
@@ -120,11 +133,12 @@ class DisasterDelete(View):
         obj = DisasterTable.objects.get(id=id)
         obj.delete()
         return HttpResponse('''<script>alert("Deleted successfully");window.location="/disasterupdate"</script>''')
+
 class Addnmanageskill(View):
     def get(self, request):
         obj=SkillTable.objects.all() 
-        return render(request, "admin/addnmanageskill.html",{'val':obj})
-    
+        return render(request,"admin/addnmanageskill.html",{'val':obj})
+
 class DltSkill(View):
     def get(self, request, id):
         obj = SkillTable.objects.get(id=id)
@@ -139,6 +153,20 @@ class Addskill(View):
         obj.skill=skill
         obj.save()
         return HttpResponse('''<script>alert("added successfully");window.location="/addnmanageskill"</script>''')
+   
+class editSkill(View):
+    def get(self, request,id):
+        c= SkillTable.objects.get(id=id)
+        print(c)
+        return render(request, "admin/edit_skill.html",{'c':c})
+
+    def post(self, request,id):
+        skill = request.POST['skill']
+        obj = SkillTable.objects.get(id=id)
+        obj.skill=skill
+        obj.save()
+        return HttpResponse('''<script>alert("added successfully");window.location="/addnmanageskill"</script>''')
+   
   
 
     # //////////////////////////// NGO //////////////////////////////////

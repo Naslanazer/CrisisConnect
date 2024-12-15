@@ -14,6 +14,7 @@ urlpatterns = [
     path('delete_donation/<int:id>', DeleteDonation.as_view(), name="delete_Donation"),
     path('resource', ViewResource.as_view(), name="resource"),
     path('dlt_resource/<int:id>', DltResource.as_view(), name="resource"),
+    path('editresource/<int:id>', editresource.as_view(), name="Editresource"),
     path('volunteer', ViewVolunteers.as_view(), name="volunteer"),
     path('delete_user/<int:id>', Dltvolunteer.as_view(), name="delete_vltr"),
     path('user', ViewUser.as_view(), name="user"),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('addnmanageskill', Addnmanageskill.as_view(), name="addnmanageskill"),
     path('delete_skill/<int:id>', DltSkill.as_view(), name="delete_skill"),
     path('addskill', Addskill.as_view(), name="addskill"),
+    path('editSkill/<int:id>', editSkill.as_view(), name="EditSkill"),
 
     # //////////////////////////// NGO //////////////////////////////////
 

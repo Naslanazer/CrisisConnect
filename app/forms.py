@@ -10,7 +10,7 @@ class disasterForm(forms.ModelForm):
 class resourcesForm(forms.ModelForm):
     class Meta:
         model= ResourceTable
-        fields=['Name','Details','Quantity','Date']
+        fields=['Name','Details','Quantity']
 
 
 class NGORegForm(forms.ModelForm):

@@ -15,6 +15,7 @@ class UserTable(models.Model):
     Address = models.CharField(max_length=50, null=True, blank=True)
     Type = models.CharField(max_length=30, null=True, blank=True)
     Skill = models.CharField(max_length=30, null=True, blank=True)
+    Status = models.CharField(max_length=30, null=True, blank=True)
  
 class DonationTable(models.Model):
     USER= models.ForeignKey(UserTable, on_delete=models.CASCADE)
@@ -41,7 +42,7 @@ class ResourceTable(models.Model):
     Name= models.CharField(max_length=30, null=True, blank=True)
     Quantity= models.IntegerField(null=True, blank=True)
     Details= models.CharField(max_length=20, null=True, blank=True)
-    Date= models.DateField(null=True, blank=True)
+    Date= models.DateField(auto_now_add=True, null=True, blank=True)
 
 class DisasterTable(models.Model):
     Disaster= models.CharField(max_length=30, null=True, blank=True)

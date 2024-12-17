@@ -12,18 +12,20 @@
             <td>Name</td>
             <td>Phone</td>
             <td>Email</td>
-            <td>donation</td>
-            <td>date</td>
+            <td>Amount</td>
+            <td>Description</td>
+            <td>Date</td>
             <td colspan="2">Actions</td>
           </tr>
           {%for i in val%}
           <tr>
-            <td>{{i.Name}} </td>
-            <td> {{i.phone}}</td>
-            <td>{{i.Email}} </td>
-            <td>{{i.donation}} </td>
-            <td>{{i.date}} </td>
-            <td> <a href="">DELETE</a></td>             
+            <td>{{i.USER.Name}} </td>
+            <td> {{i.USER.Phone}}</td>
+            <td>{{i.USER.Email}} </td>
+            <td>{{i.Amount}} </td>
+            <td>{{i.Description}} </td>
+            <td>{{i.Date}} </td>
+            <td> <a href="delete_donation/{{i.id}}">DELETE</a></td>             
           </tr>
           {%endfor%}
         </table>

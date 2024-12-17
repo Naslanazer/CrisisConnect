@@ -13,16 +13,14 @@
             <td>details</td>
             <td>quantity</td>
             <td>date</td>
-            <td colspan="2">Actions</td>
+            
           </tr>
           {%for i in val%}
           <tr>
             <td>{{i.Name}} </td>
             <td> {{i.Details}}</td>
-            <td>{{i.quantity}} </td>
-            <td>{{i.date}} </td>
-            <td> <a href="">EDIT</a></td>
-            <td> <a href="">DELETE</a></td>             
+            <td>{{i.Quantity}} </td>
+            <td>{{i.Date}} </td>
           </tr>
           {%endfor%}
          </table>

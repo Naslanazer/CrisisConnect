@@ -21,10 +21,15 @@
             <td> {{i.Details}}</td>
             <td>{{i.Location}} </td>
             <td>{{i.Weather}} </td>
-            <td> <a href="">EDIT</a></td>
-            <td> <a href="">DELETE</a></td>             
+            <td> <a href="/edit_ngoDisaster/{{i.id}}">EDIT</a></td>
+            <td> <a href="/disaster_delete/{{i.id}}">DELETE</a></td>             
           </tr>
           {%endfor%}
+          <tr>
+            <td colspan="5" align="center">
+              <a href="addngodisaster">add disaster</a>
+            </td>
+          </tr>
         </table>
 </body>
 </html>

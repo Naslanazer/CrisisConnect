@@ -137,14 +137,15 @@ class ViewDisasterupdate(View):
     def get(self, request):
         obj=DisasterTable.objects.all() 
         return render(request, "admin/ViewDisasterupdate.html",{'val':obj})
+    
 class AddDisaster(View):
     def get(self, request):
         return render(request, "admin/add_disaster.html")
     def post(self, request):
-        form= disasterForm(request.POST)
+        form= disasterForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return HttpResponse('''<script>alert(" successfully");window.location="/disasterupdate"</script>''')
+            return HttpResponse('''<script>alert("successfully");window.location="/disasterupdate"</script>''')
         return render(request, "admin/add_disaster.html")
 
 class editDisaster(View):
@@ -153,7 +154,7 @@ class editDisaster(View):
         return render(request, "admin/edit_disaster.html",{'c':c})
     def post(self, request,id):
         c= DisasterTable.objects.get(id=id)
-        form= disasterForm(request.POST,instance=c)
+        form= disasterForm(request.POST, request.FILES,instance=c)
         if form.is_valid():
             form.save()
             return HttpResponse('''<script>alert(" successfully");window.location="/disasterupdate"</script>''')

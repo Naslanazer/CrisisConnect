@@ -45,6 +45,7 @@ class ResourceTable(models.Model):
     Date= models.DateField(auto_now_add=True, null=True, blank=True)
 
 class DisasterTable(models.Model):
+    Image= models.FileField()
     Disaster= models.CharField(max_length=30, null=True, blank=True)
     Details= models.CharField(max_length=125, null=True, blank=True)
     Location= models.CharField(max_length=20, null=True, blank=True)

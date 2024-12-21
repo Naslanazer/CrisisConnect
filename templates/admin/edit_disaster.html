@@ -6,7 +6,7 @@
     <title>Disaster</title>
 </head>
 <body>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {%csrf_token%}
     <table>
         <tr>
@@ -16,6 +16,12 @@
         <tr>
             <td>details</td>
             <td><input type="text" name="Details" value="{{c.Details}}"></td>
+        </tr>
+        <tr>
+            <td>Image</td>
+            <td>
+                <img src="{{c.Image.url}}" width="100", height="60">
+                <input type="file" name="Image" value="{{c.Image}}"></td>
         </tr>
         <tr>
             <td>location</td>

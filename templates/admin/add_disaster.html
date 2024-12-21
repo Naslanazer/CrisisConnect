@@ -6,12 +6,16 @@
     <title>Disaster</title>
 </head>
 <body>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {%csrf_token%}
     <table>
         <tr>
             <td>Disaster</td>
             <td><input type="text" name="Disaster"></td>
+        </tr>
+        <tr>
+            <td>Image</td>
+            <td><input type="file" name="Image"></td>
         </tr>
         <tr>
             <td>details</td>

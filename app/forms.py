@@ -5,7 +5,7 @@ from .models import *
 class disasterForm(forms.ModelForm):
     class Meta:
         model= DisasterTable
-        fields=['Disaster','Details','Location','Weather']
+        fields=['Disaster','Details','Location','Weather', 'Image']
         
 class resourcesForm(forms.ModelForm):
     class Meta:

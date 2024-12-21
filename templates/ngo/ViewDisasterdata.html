@@ -9,6 +9,7 @@
     
         <table border="1">
           <tr>
+            <td>image</td>
             <td>disaster</td>
             <td>details</td>
             <td>location</td>
@@ -17,6 +18,7 @@
           </tr>
           {%for i in val%}
           <tr>
+            <td><img src="{{i.Image.url }}"></td>
             <td>{{i.Disaster}} </td>
             <td> {{i.Details}}</td>
             <td>{{i.Location}} </td>

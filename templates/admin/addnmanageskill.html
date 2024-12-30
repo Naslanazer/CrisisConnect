@@ -1,26 +1,63 @@
-<!DOCTYPE html>
-<html>
-<head>
-  
-  <title>Add and manage Skills</title>
-</head>
-<body>
-      <h1>Add and manage skills</h1>
-    
-        <table border="1">
-          <tr>
-            <td>skill</td>
-          </tr>
-          {% for i in val %}
-          <tr>
-            <td>{{i.skill}} </td>
-              <td> <a href="/editSkill/{{i.id}}">EDIT</a></td>
-            <td><a href="/delete_skill/{{i.id}}">DELETE</a></td> 
+{% extends 'admin/base.html' %}
+{%block body%}
+<!-- Main Content -->
+<div class="tbl-div">
+  <div class="content container-fluid">
+    <div class="container-fluid mt-4">
+      <div class="head">
+        <h2 class="mb-4">Skills</h2>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal">Add New
+        Skill</button>
+      </div>
+      <div class="table-responsive">
+        <table class="table user-table table-striped">
+          <thead>
+            <tr>
+              <th>skill</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in val %}
+            <tr>
+              <td>{{i.skill}} </td>
+              <td> <a class="btn btn-warning" href="/editSkill/{{i.id}}">EDIT</a>
+                <a class="btn btn-danger" href="/delete_skill/{{i.id}}"
+                  onclick="return confirm('are you sure?')">DELETE</a>
+              </td>
             </tr>
             {%endfor%}
-             <tr>        
-            <td><a href="addskill">add new skill</a></td>          
-          </tr>
+          </tbody>
         </table>
-</body>
-</html>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event Registration Modal -->
+  <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventModalLabel">Register New Skill</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="eventForm" action="addskill" method="post">
+                  {%csrf_token%}
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <label for="eventName" class="form-label">skill</label>
+                        <input type="text" class="form-control"  name="skill" placeholder="Skill ..">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="eventForm">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{%endblock%}

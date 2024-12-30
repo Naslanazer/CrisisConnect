@@ -1,0 +1,196 @@
+:root{
+    --bg-color: #f4ebdb;
+    --bg-color2: #9f7320;
+    --bg-color-hover: #5d400a;
+    --border-color: #495057;
+    --danger-bg-color:#dc3545;
+    --text-color1: #333;
+    --text-color2:#fff;
+    --text-color3:#484a4a;
+    --table-td-color:#00ADB5;
+    --accept-color:#28a745;
+    --view-color:#065bb6;
+  }
+  *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+  body {
+      background-color: var(--bg-color);
+    }
+    nav{
+      background-color: var(--bg-color2);
+    }
+    .sidebar {
+      background-color: var(--bg-color2);
+      height: 90vh;
+    }
+    .sidebar a{
+      text-decoration: none;
+      color: var(--text-color2);
+    }
+    .sidebar-item {
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .sidebar-item:hover{
+      background-color: var(--bg-color-hover);
+    }
+    .badge {
+      font-size: 0.8rem;
+      margin-left: 5px;
+    }
+    .alert-danger-custom {
+      background-color: var(--danger-bg-color) !important;
+      color: var(--text-color2) !important;
+      border-color: var(--danger-bg-color) !important;
+    }
+  
+    /* user table */
+    .head{
+        display: flex;
+        justify-content: space-between;
+        align-items:center ;
+        align-content: center;
+    }
+    .tbl-div{
+        width: 100%;
+        padding: 10px;
+        background-color: #9f732082;
+        border-radius: 10px;
+    }
+
+    .user-table th, .user-table td {
+      vertical-align: middle;
+    }
+  
+    .user-table th {
+      font-weight: bold;
+      background-color: var(--bg-color2);
+    }
+  
+    .user-table th, .user-table td {
+      vertical-align: middle;
+    }
+  
+    .user-table th {
+      font-weight: bold;
+    }
+   a{
+    text-decoration: none;
+    color: var(--text-color2);
+   }
+    .accept-btn, .reject-btn, .view-btn{
+      padding: 6px 12px;
+      margin-right: 5px;
+    }
+  
+    .accept-btn {
+      background-color: var(--accept-color);
+      color: var(--text-color2);
+      border: none;
+      &:hover{
+        color:var(--bg-color);
+      }
+    }
+  
+    .reject-btn {
+      background-color: var(--danger-bg-color);
+      color: var(--text-color2);
+      border: none;
+      &:hover{
+        color:var(--bg-color)
+      }
+    }
+    .view-btn {
+      background-color: var(--view-color);
+      color: var(--text-color2);
+      border: none;
+      &:hover{
+        color:var(--bg-color)
+      }
+    }
+    /* alerts */
+    .alert-table th, .alert-table td {
+      vertical-align: middle;
+    }
+  
+    .alert-table th {
+      font-weight: bold;
+    }
+    .user-details-card {
+      max-width: 500px;
+      margin: 0 auto;
+      margin-top: 50px;
+    }
+  
+    /* charging station */
+    .add-station-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+  
+    /* add form */
+    input{
+      margin: 3px;
+    }
+  
+     /* progressbar */
+   :root {
+    --progress-bar-width: 50px;
+    --progress-bar-height: 50px;
+    --font-size: 15px;
+    }
+     .circular-progress {
+    width: var(--progress-bar-width);
+    height: var(--progress-bar-height);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    }
+    .inner-circle {
+    position: absolute;
+    width: calc(var(--progress-bar-width) - 12px);
+    height: calc(var(--progress-bar-height) - 12px);
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    }
+    
+    .percentage {
+      top: 15%;
+    position: relative;
+    font-size: var(--font-size);
+    color: rgb(0, 0, 0, 0.8);
+    }
+   
+     /* CSS styles for the indicators */
+     .thermometer-container,
+     .humidity-container {
+       position: relative;
+       width: 10px;
+       height: 40px;
+       background-color: #ccc;
+       border-radius: 10px;
+       overflow: hidden;
+       display: flex;
+       justify-content: center;
+       align-items: flex-end;
+     }
+     .thermometer-level {
+       width: 100%;
+       background-color: #f00; /* Default color for thermometer level */
+       transition: height 0.3s ease-in-out;
+     }
+     .humidity-level {
+       width: 100%;
+       transition: height 0.3s ease-in-out;
+     }
+     .temperature-value,
+     .humidity-value {
+       font-size: 14px;
+       font-weight: bold;
+     }

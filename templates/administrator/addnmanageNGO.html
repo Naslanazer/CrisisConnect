@@ -1,0 +1,39 @@
+
+{% extends 'administrator/base.html' %}
+{%block body%}
+<!-- Main Content -->
+<div class="tbl-div">
+  <div class="content container-fluid">
+      <div class="container-fluid mt-4">
+          <h2 class="mb-4">NGO</h2>
+          <div class="table-responsive">
+            <table class="table user-table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Service</th>
+                  <th>Specialization</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {%for i in val%}
+                <tr>
+                  <td>{{i.Name}}</td>
+                  <td>{{i.Email}}</td>
+                  <td>{{i.Phone}}</td>
+                  <td>{{i.Service}}</td>
+                  <td>{{i.Specialization}}</td>
+                  <td></td>
+                  <td><a href="delete_ngo/{{i.LOGIN.id}}" class="btn btn-danger" onclick="return confirm('are you sure to delete this user?')">DELETE</a></td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+  </div>
+</div>
+{%endblock%}

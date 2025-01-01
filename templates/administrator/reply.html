@@ -1,0 +1,20 @@
+
+{% extends 'administrator/base.html' %}
+{%block body%}
+<div class="tbl-div">
+    <h2>reply form</h2>
+<form id="eventForm"  method="post">
+    {%csrf_token%}
+      <div class="mb-3">
+          <label for="eventName" class="form-label">complaint</label>
+          <input type="text" class="form-control" name="Name" value="{{c.complaint}}">
+          <label for="eventName" class="form-label">reply</label>
+          <input type="text" class="form-control" name="Details" value="{{c.Details}}">
+         <textarea name="reply" id="" class="form-control"></textarea>
+          <button class="btn btn-success" type="submit">save</button>
+      </div>
+
+  </form>
+  </div>
+  {% endblock %}
+

@@ -1,0 +1,26 @@
+
+
+{% extends 'administrator/base.html' %}
+{%block body%}
+<div class="tbl-div">
+    <h2>Edit Resources</h2>
+<form id="eventForm"  method="post">
+    {%csrf_token%}
+      <div class="mb-3">
+          <label for="eventName" class="form-label">Disaster</label>
+          <input type="text" class="form-control" name="Disaster" value="{{c.Disaster}}">
+          <label for="eventName" class="form-label">details</label>
+          <input type="text" class="form-control" name="Details" value="{{c.Details}}">
+          <label for="eventName" class="form-label">location</label>
+          <input type="text" class="form-control" name="Location" value="{{c.Location}}">
+          <label for="eventName" class="form-label">weather</label>
+          <input type="text" class="form-control"name="Weather" value="{{c.Weather}}">
+          <label for="eventName" class="form-label">Image</label><br>
+            <img src="{{c.Image.url}}" height="100px" width="80px">
+            <input type="file" class="form-control" name="Image" value="{{c.Image}}">
+          <button class="btn btn-success" type="submit">save</button>
+      </div>
+
+  </form>
+  </div>
+  {% endblock %}

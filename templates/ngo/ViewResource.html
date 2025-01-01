@@ -5,7 +5,7 @@
   <title>View Resources</title>
 </head>
 <body>
-      <h1>resources</h1>
+      <h1>resources hfghgyg</h1>
     
         <table border="1">
           <tr>
@@ -26,3 +26,42 @@
          </table>
 </body>
 </html>
+
+
+
+{% extends 'admin/base.html' %}
+{%block body%}
+<!-- Main Content -->
+<div class="tbl-div">
+  <div class="content container-fluid">
+      <div class="container-fluid mt-4">
+          <h2 class="mb-4">Resources</h2>
+          <div class="table-responsive">
+            <table class="table user-table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>details</th>
+                  <th>quantity</th>
+                  <th>date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {%for i in val%}
+                <tr>
+                  <td>{{i.Name}}</td>
+                  <td> {{i.Details}}</td>
+                  <td>{{i.Quantity}} </td>
+                  <td>{{i.Date}}</td>
+                  <td><a href="dlt_resource/{{i.id}}" class="btn btn-danger" onclick="return confirm('are you sure to delete this user?')">DELETE</a>
+                     <a href="editresource/{{i.id}}" class="btn btn-warning">EDIT</a></td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+  </div>
+</div>
+{%endblock%}

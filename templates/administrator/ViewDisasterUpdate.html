@@ -1,44 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-  
-  <title>Disater updates</title>
-</head>
-<body>
-      <h1>Disaster Updates</h1>
-    
-        <table border="1">
-          <tr>
-            <td>image</td>
-            <td>disaster</td>
-            <td>details</td>
-            <td>location</td>
-            <td>weather</td>
-            <td colspan="2">Actions</td>
-          </tr>
-          {%for i in val%}
-          <tr>
-            <td><img src="{{i.Image.url }}"></td>
-            <td>{{i.Disaster}} </td>
-            <td> {{i.Details}}</td>
-            <td>{{i.Location}} </td>
-            <td>{{i.Weather}} </td>
-            <td> <a href="/edit_ngoDisaster/{{i.id}}">EDIT</a></td>
-            <td> <a href="/disaster_delete/{{i.id}}">DELETE</a></td>             
-          </tr>
-          {%endfor%}
-          <tr>
-            <td colspan="5" align="center">
-              <a href="addngodisaster">add disaster</a>
-            </td>
-          </tr>
-        </table>
-</body>
-</html>
 
 
 
-{% extends 'admin/base.html' %}
+{% extends 'administrator/base.html' %}
 {%block body%}
 <!-- Main Content -->
 <div class="tbl-div">
@@ -69,8 +32,8 @@
             <td> {{i.Details}}</td>
             <td>{{i.Location}} </td>
             <td>{{i.Weather}} </td>
-              <td> <a class="btn btn-warning" href="/edit_ngoDisaster/{{i.id}}">EDIT</a>
-                <a class="btn btn-danger" href="/disaster_delete/{{i.id}}"
+              <td> <a class="btn btn-warning" href="/editDisaster/{{i.id}}">EDIT</a>
+                <a class="btn btn-danger" href="/disasterdelete/{{i.id}}"
                   onclick="return confirm('are you sure?')">DELETE</a>
               </td>
             </tr>
@@ -90,7 +53,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="eventForm" enctype="multipart/form-data" method="post">
+                <form id="eventForm" action="/addisaster" enctype="multipart/form-data" method="post">
                   {%csrf_token%}
                     <!-- Name -->
                     <div class="mb-3">

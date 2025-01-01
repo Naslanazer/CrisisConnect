@@ -29,7 +29,7 @@ urlpatterns = [
     path('delete_skill/<int:id>', DltSkill.as_view(), name="delete_skill"),
     path('addskill', Addskill.as_view(), name="addskill"),
     path('editSkill/<int:id>', editSkill.as_view(), name="EditSkill"),
-
+    path('reply/<int:id>', reply.as_view(), name="Reply"), 
 
     # //////////////////////////// NGO //////////////////////////////////
 

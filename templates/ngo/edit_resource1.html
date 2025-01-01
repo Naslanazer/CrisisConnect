@@ -35,3 +35,27 @@
 </form>
 </body>
 </html>
+
+
+
+{% extends 'ngo/base.html' %}
+{%block body%}
+<div class="tbl-div">
+    <h2>Edit Resources</h2>
+<form id="eventForm"  method="post">
+    {%csrf_token%}
+      <div class="mb-3">
+          <label for="eventName" class="form-label">Name</label>
+          <input type="text" class="form-control" name="Name" value="{{c.Name}}">
+          <label for="eventName" class="form-label">details</label>
+          <input type="text" class="form-control" name="Details" value="{{c.Details}}">
+          <label for="eventName" class="form-label">quantity</label>
+          <input type="number" class="form-control" name="Quantity" value="{{c.Quantity}}" required pattern="[0-9]{0,3}">
+          <label for="eventName" class="form-label">date</label>
+          <input type="date" class="form-control" name="Date" value="{{date}}">
+          <button class="btn btn-success" type="submit">save</button>
+      </div>
+
+  </form>
+  </div>
+  {% endblock %}

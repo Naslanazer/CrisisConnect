@@ -22,7 +22,7 @@
           {%for i in val%}
           <tr>
             <td>{{i.Name}} </td>
-            <td> {{i.age}}</td>
+            <td>{{i.age}}</td>
             <td>{{i.Gender}}</td>
             <td>{{i.Phone}} </td>
             <td>{{i.Email}} </td>
@@ -41,3 +41,49 @@
 </html>
 
 
+
+{% extends 'ngo/base.html' %}
+{%block body%}
+<!-- Main Content -->
+<div class="tbl-div">
+  <div class="content container-fluid">
+      <div class="container-fluid mt-4">
+          <h2 class="mb-4">Volunteer</h2>
+          <div class="table-responsive">
+            <table class="table user-table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>address</th>
+                  <th>Skill</th>
+                  <td>Status</td>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {%for i in val%}
+                <tr>
+                  <td>{{i.Name}}</td>
+                  <td>{{i.age}}</td>
+                  <td>{{i.Gender}}</td>
+                  <td>{{i.Phone}}</td>
+                  <td>{{i.Email}}</td>
+                  <td>{{i.Address}}</td>
+                  <td>{{i.Skill}}</td>
+                  <td>{{i.Status}} </td>
+                  <td></td>
+                  <td><a href="/active_volunteer/{{i.id}}" class="btn btn-success">active</a>
+                      <a href="/inactive_volunteer/{{i.id}}" class="btn btn-danger">inactive</a></td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+  </div>
+</div>
+{%endblock%}

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVSync Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --bg-color: #f4ebdb;
+            --bg-color2: #dda845;
+            --bg-color-hover: #5d400a;
+            --border-color: #495057;
+            --danger-bg-color: #dc3545;
+            --text-color1: #333;
+            --text-color2: #fff;
+            --text-color3: #484a4a;
+            --table-td-color: #00ADB5;
+            --accept-color: #28a745;
+            --view-color: #065bb6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .login-btn {
+            background-color: var(--bg-color-hover);
+            color: var(--text-color2);
+            border-radius: 20px;
+        }
+
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--bg-color2);
+
+            h2 {
+                color: var(--bg-color-hover);
+            }
+
+            .nav-items a {
+                margin-left: 20px;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+            .nav-items a:hover {
+                color: #fff;
+            }
+        }
+
+        .main {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('https://cdn.aaslh.org/wp-content/uploads/sites/23/2017/08/flood.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            border-radius: 10px;
+            margin: 10px 20px;
+            text-align: center;
+            h2{
+                color: var(--bg-color-hover);
+                font-size: 50px;
+            }
+            p{
+                color: #000000;
+                width: 60%;
+            }
+        }
+
+        .about {
+            padding: 30px 60px;
+            text-align: center;
+
+            span {
+                font-weight: 600;
+            }
+        }
+
+        .impact {
+            text-align: center;
+            background-color: var(--bg-color2);
+            color: var(--bg-color-hover);
+
+            .data-div {
+                display: flex;
+                justify-content: center;
+                gap: 80px;
+                align-items: center;
+                padding: 20px 0;
+
+                .data {
+                    padding: 20px;
+                    border-radius: 10px;
+                    margin: 10px;
+                }
+            }
+        }
+       .service-div{
+        text-align: center;
+        h2{
+            margin-bottom: 40px;
+        }
+       }
+       .services{
+           display: flex;
+           justify-content: center;
+           column-gap: 150px;
+           row-gap: 20px;
+           flex-wrap: wrap;
+           padding: 20px;
+       }
+       .service{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        gap: 10px;
+        padding: 20px;
+        width: 350px;
+        text-align: left;
+        i{
+            font-size: 80px;
+        }
+       }
+       .footer{
+        background-color: var(--border-color);
+        display: flex;
+        justify-content: center;
+        gap: 100px;
+            color: #fff;
+       }
+    </style>
+</head>
+
+<body>
+    <div class="navbar navbar-expand-lg py-2 px-5 container-fluid">
+        <h2>CrisisConnect</h2>
+        <div class="nav-items">
+            <a href="">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <a href="/login" class="btn login-btn py-2 px-4">Sign In</a>
+    </div>
+    <div class="main">
+        <h2>Together, <br>
+            We overcome.</h2>
+        <p>A unified platform connecting resources, responders, and communities
+           for faster, coordinated disaster recovery.</p>
+        <a href="/register" class="btn login-btn py-2 px-4">JOIN US TODAY!</a>
+    </div>
+    <div class="about" id="about">
+        <h2>About Us</h2>
+        <p><span>CrisisConnect</span> is a unified platform designed to streamlinc resource allocation. 
+            volunteer coordination, and community engagement during and after natural
+            disasters.With a focus on real-time collaboration, the platform connects 
+            donors, NGOs, volunteers, and public users, ensuring that aid reaches those in 
+            need efficiently and effectively.</p>
+    </div>
+    <div class="impact py-4">
+        <h2>OUR IMPACT</h2>
+        <div class="data-div">
+            <div class="data">
+                <h1>50K+</h1>
+                <p>Total Donations</p>
+            </div>
+            <div class="data">
+                <h1>115</h1>
+                <p>Active volunteers</p>
+            </div>
+            <div class="data">
+                <h1>25+</h1>
+                <p>NGO Partnerships</p>
+            </div>
+        </div>
+    </div>
+    <div class="service-div py-4" id="services">
+        <h2>Our Features</h2>
+        <div class="services">
+            <div class="service">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="cnt">
+                    <h3>Real-Time Disaster alerts</h3>
+                    <p>receive instant notifications about natural disasters and emergencies in your area.</p>
+                </div>
+            </div>
+
+            <div class="service">
+                <i class="fa-regular fa-comment-dots"></i>
+                <div class="cnt">
+                    <h3>Interactive disaster mapping</h3>
+                    <p>View real time maps, highlighting affected areas, evacuation routes and safe zones.</p>
+                </div>
+            </div>
+
+            <div class="service">
+                <i class="fa-solid fa-briefcase-medical"></i>
+                <div class="cnt">
+                    <h3>Resource allocation</h3>
+                    <p>streamline the distribution of essential resources like food, water and medical aid.</p>
+                </div>
+            </div>
+
+            <div class="service">
+                <i class="fa-solid fa-handshake-angle"></i>
+                <div class="cnt">
+                    <h3>Volunteer Coordination</h3>
+                    <p>Connect with volunteers and Organizations to offer or receive help during crisis.</p>
+                </div>
+            </div>
+
+            <div class="service">
+                <i class="fa-solid fa-truck-medical"></i>
+                <div class="cnt">
+                    <h3>Emergency Contact Database</h3>
+                    <p>Access a directory of emergency services, shelters and support Organizations.</p>
+                </div>
+            </div>
+
+            <div class="service">
+                <i class="fas fa-users"></i>
+                <div class="cnt">
+                    <h3>Community</h3>
+                    <p>Connect with volunteers and Organizations to offer or receive help during crisis.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="footer py-4" id="contact">
+       <h2>CrisisConnect</h2>
+       <div class="div">
+        <p>crisisConnect@gmail.com</p>
+        <p>+91 9876543211</p>
+       </div>
+    </div>
+
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>

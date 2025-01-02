@@ -3,6 +3,9 @@ from http.client import HTTPResponse
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
+from django.shortcuts import redirect
+from django.views import View
+from django.contrib.auth import logout
 
 from app.models import *
 from.forms import *
@@ -11,28 +14,42 @@ from.forms import *
 
 # ///////////////////////////////////// ADMIN ////////////////////////////////////
 
+class home(View):
+    def get(self,request):
+        return render(request,"home.html")
 
 
+class Logout(View):
+    def get(self, request):
+        # Flush the session data
+        request.session.flush()
+        # Log out the user
+        logout(request)
+        # Redirect to the login page
+        return redirect("login")
+    
 class signup(View):
     def get(self, request):
         return render(request, "signup.html")
     def post(self, request):
         form = NGORegForm(request.POST)
         username = request.POST['username']
-        obj = LoginTable.objects.get(Username=username)
-        if obj:
-            return HttpResponse('''<script>alert("username already exist");window.location="/"</script>''')
-        else:
+        password = request.POST['password']
+        print("username")
+        try:
+            obj = LoginTable.objects.get(Username=username,Password=password)
+            return HttpResponse('''<script>alert("user already exist");window.location="/"</script>''')
+
+        except:
             if form.is_valid():
                 f=form.save(commit=False)
                 obj = LoginTable.objects.create(
-                    Username=request.POST['username'],
-                    Password=request.POST['password'],
-                    Type="ngo"
-                )
+                Username=request.POST['username'],
+                Password=request.POST['password'],
+                Type="ngo")
                 f.LOGIN=obj
                 f.save()
-            return HttpResponse('''<script>alert("registered successfully");window.location="/"</script>''')
+                return HttpResponse('''<script>alert("registered successfully");window.location="/"</script>''')
 
    
     
@@ -44,6 +61,8 @@ class LoginPage(View):
         username= request.POST['username']
         password= request.POST['password']
         login_obj= LoginTable.objects.get(Username=username, Password=password)
+        request.session["loginid"]=login_obj.id
+
         if login_obj.Type =="admin": 
             return HttpResponse('''<script>alert("Logged in successfully");window.location="/admindashboard"</script>''')
         elif login_obj.Type =="ngo": 
@@ -52,8 +71,8 @@ class LoginPage(View):
         
 class Viewcomplaints(View):
     def get(self, request):
-        obj=ComplaintTable.objects.all()
-        return render(request, "administrator/Viewcomplaints.html",{'val':obj})
+        obj = ComplaintTable.objects.filter(Reply__isnull=True)  # For NULL values
+        return render(request, "administrator/Viewcomplaints.html", {'val': obj})
     
 class ManageNGO(View):
     def get(self, request):
@@ -85,7 +104,7 @@ class DeleteDonation(View):
     
 class DltResource(View):
     def get(self, request, id):
-        obj = LoginTable.objects.get(id=id)
+        obj = ResourceTable.objects.get(id=id)
         obj.delete()
         return HttpResponse('''<script>alert("Deleted successfully");window.location="/resource"</script>''')     
     
@@ -208,18 +227,14 @@ class reply(View):
     def post(self, request,id):
         reply = request.POST['reply']
         obj = ComplaintTable.objects.get(id=id)
-        obj.reply=reply
+        obj.Reply=reply
         obj.save()
-        return HttpResponse('''<script>alert("added successfully");window.location="/addnmanageskill"</script>''')
+        return HttpResponse('''<script>alert("added successfully");window.location="/viewcomplaints"</script>''')
    
   
   
 
     # //////////////////////////// NGO //////////////////////////////////
-    
-class logout(View):
-    def get(self, request):
-        return render(request, "ngo/Logout.html")
     
 class Donationtransaction(View):
     def get(self, request):
@@ -267,20 +282,19 @@ class editNGODisaster(View):
             form.save()
             return HttpResponse('''<script>alert(" successfully");window.location="/Viewdisasterdata"</script>''')
         return render(request, "administrator/add_disaster.html")
-    
+
 
 class addResources(View):
-    def get(self, request):
-        return render(request, "ngo/add_resources.html")
+    # def get(self, request):
+    #     return render(request, "ngo/add_resources.html")
     def post(self, request):
-        form= resourcesForm(request.POST)
+        id= request.session["loginid"]
+        form= resourcesForm(request.POST, request.FILES)
         if form.is_valid():
-            f=form.save(commit=False)
-            login_obj=LoginTable.objects.get(id=request.session['login_id'])
-            f.LOGIN=login_obj
-            f.save()
-            return HttpResponse('''<script>alert(" successfully");window.location="/Viewresource"</script>''')
-        return render(request, "ngo/add_resources.html")
+            form.LOGIN=id
+            form.save()
+            return HttpResponse('''<script>alert("successfully");window.location="/Viewresource"</script>''')
+        return render(request, "ngo/ViewResource.html")
  
 class ViewResources(View):
     def get(self, request):

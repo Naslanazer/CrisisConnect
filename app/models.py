@@ -38,7 +38,7 @@ class NGOTable(models.Model):
     Specialization= models.CharField(max_length=20, null=True, blank=True)
     
 class ResourceTable(models.Model):
-    LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE)
+    LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE,null=True,blank=True)
     Name= models.CharField(max_length=30, null=True, blank=True)
     Quantity= models.IntegerField(null=True, blank=True)
     Details= models.CharField(max_length=20, null=True, blank=True)

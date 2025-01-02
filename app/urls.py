@@ -5,7 +5,9 @@ from app.views import *
 urlpatterns = [
 
     # //////////////////////////// ADMIN //////////////////////////////////
-    path('', signup.as_view(), name="signup"),
+    path('', home.as_view(), name="home"),
+    path('logout', Logout.as_view(), name="logout"),
+    path('signup', signup.as_view(), name="signup"),
     path('login', LoginPage.as_view(), name="login"),
     path('viewcomplaints', Viewcomplaints.as_view(), name="complaint"),
     path('ManageNGO', ManageNGO.as_view(), name="addnmanageNGO"),
@@ -33,7 +35,6 @@ urlpatterns = [
 
     # //////////////////////////// NGO //////////////////////////////////
 
-    path('logout', logout.as_view(), name="logout"),
     path('Donationtransaction', Donationtransaction.as_view(), name="Donationtransaction"),
     path('delete_donation/<int:id>', Dlt_Donationtransaction.as_view(), name="delete_donation"),
     path('ngodashboard', ngodashboard.as_view(), name="dashboard"),

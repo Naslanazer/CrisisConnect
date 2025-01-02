@@ -1,38 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  
-  <title>donation</title>
-</head>
-<body>
-      <h1>donation</h1>
-    
-        <table border="1">
-          <tr>
-            <td>Name</td>
-            <td>Phone</td>
-            <td>Email</td>
-            <td>Amount</td>
-            <td>Description</td>
-            <td>Date</td>
-            <td colspan="2">Actions</td>
-          </tr>
-          {%for i in val%}
-          <tr>
-            <td>{{i.USER.Name}} </td>
-            <td> {{i.USER.Phone}}</td>
-            <td>{{i.USER.Email}} </td>
-            <td>{{i.Amount}} </td>
-            <td>{{i.Description}} </td>
-            <td>{{i.Date}} </td>
-            <td> <a href="delete_donation/{{i.id}}">DELETE</a></td>             
-          </tr>
-          {%endfor%}
-        </table>
-</body>
-</html>
-
-
 
 {% extends 'ngo/base.html' %}
 {%block body%}

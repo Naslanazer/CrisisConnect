@@ -1,31 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  
-  <title>View Resources</title>
-</head>
-<body>
-      <h1>resources hfghgyg</h1>
-    
-        <table border="1">
-          <tr>
-            <td>Name</td>
-            <td>details</td>
-            <td>quantity</td>
-            <td>date</td>
-            
-          </tr>
-          {%for i in val%}
-          <tr>
-            <td>{{i.Name}} </td>
-            <td> {{i.Details}}</td>
-            <td>{{i.Quantity}} </td>
-            <td>{{i.Date}} </td>
-          </tr>
-          {%endfor%}
-         </table>
-</body>
-</html>
+
 
 
 
@@ -34,34 +7,74 @@
 <!-- Main Content -->
 <div class="tbl-div">
   <div class="content container-fluid">
-      <div class="container-fluid mt-4">
-          <h2 class="mb-4">Resources</h2>
-          <div class="table-responsive">
-            <table class="table user-table table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>details</th>
-                  <th>quantity</th>
-                  <th>date</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {%for i in val%}
-                <tr>
-                  <td>{{i.Name}}</td>
-                  <td> {{i.Details}}</td>
-                  <td>{{i.Quantity}} </td>
-                  <td>{{i.Date}}</td>
-                  <td><a href="dlt_resource/{{i.id}}" class="btn btn-danger" onclick="return confirm('are you sure to delete this user?')">DELETE</a>
-                     <a href="editresource/{{i.id}}" class="btn btn-warning">EDIT</a></td>
-                </tr>
-                {%endfor%}
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div class="container-fluid mt-4">
+      <div class="head">
+        <h2 class="mb-4">Resources</h2>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal">Add New
+       Resources</button>
+      </div>
+      <div class="table-responsive">
+        <table class="table user-table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>details</th>
+              <th>quantity</th>
+              <th>date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in val %}
+            <tr>
+              <td>{{i.Name}}</td>
+              <td> {{i.Details}}</td>
+              <td>{{i.Quantity}} </td>
+              <td>{{i.Date}}</td>
+              <td> <a class="btn btn-warning" href="/edit_ngoResource/{{i.id}}">EDIT</a>
+                <a class="btn btn-danger" href="/dlt_resource/{{i.id}}"
+                  onclick="return confirm('are you sure?')">DELETE</a>
+              </td>
+            </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
+
+  <!-- Event Registration Modal -->
+  <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventModalLabel">Add new Disaster updates</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="resourceForm" action="addResource" enctype="multipart/form-data" method="post">
+                  {%csrf_token%}
+                    <!-- Name -->
+                    <div class="mb-3">
+                      <label for="eventName" class="form-label">Name</label>
+                      <input type="text" class="form-control" name="Name">
+                      <label for="eventName" class="form-label">details</label>
+                      <input type="text" class="form-control" name="Details">
+                      <label for="eventName" class="form-label">quantity</label>
+                      <input type="number" class="form-control" name="Quantity"  required pattern="[0-9]{0,3}">
+                      <label for="eventName" class="form-label">date</label>
+                      <input type="date" class="form-control" name="Date">
+                  </div>
+            
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="eventForm">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 {%endblock%}
+

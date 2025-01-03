@@ -1,7 +1,5 @@
 
 
-
-
 {% extends 'ngo/base.html' %}
 {%block body%}
 <!-- Main Content -->
@@ -52,7 +50,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="resourceForm" action="addResource" enctype="multipart/form-data" method="post">
+                <form id="resourceForm" action="/addResource"  method="post">
                   {%csrf_token%}
                     <!-- Name -->
                     <div class="mb-3">
@@ -62,16 +60,15 @@
                       <input type="text" class="form-control" name="Details">
                       <label for="eventName" class="form-label">quantity</label>
                       <input type="number" class="form-control" name="Quantity"  required pattern="[0-9]{0,3}">
-                      <label for="eventName" class="form-label">date</label>
-                      <input type="date" class="form-control" name="Date">
-                  </div>
-            
+                                        </div>
+
                 </form>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" form="resourceForm">Submitgfgf</button>
+              </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" form="eventForm">Submit</button>
-            </div>
+           
         </div>
     </div>
 </div>

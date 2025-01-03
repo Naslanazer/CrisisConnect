@@ -36,7 +36,7 @@ urlpatterns = [
     # //////////////////////////// NGO //////////////////////////////////
 
     path('Donationtransaction', Donationtransaction.as_view(), name="Donationtransaction"),
-    path('delete_donation/<int:id>', Dlt_Donationtransaction.as_view(), name="delete_donation"),
+    path('delete_donation_ngo/<int:id>', Dlt_Donationtransaction.as_view(), name="delete_donation_ngo"),
     path('ngodashboard', ngodashboard.as_view(), name="dashboard"),
     path('Viewdisasterdata', Viewdisaster.as_view(), name="viewdisaster"),
     path('disaster_delete/<int:id>',Dlt_disaster.as_view(), name="disaster_delete"),

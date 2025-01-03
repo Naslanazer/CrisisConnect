@@ -24,7 +24,7 @@ class Logout(View):
         # Flush the session data
         request.session.flush()
         # Log out the user
-        logout(request)
+        # logout(request)
         # Redirect to the login page
         return redirect("login")
     
@@ -255,16 +255,20 @@ class ngodashboard(View):
 class Viewdisaster(View):
     def get(self, request):
         obj=DisasterTable.objects.all()
+        print(obj)
         return render(request, "ngo/Viewdisasterdata.html",{'val':obj})
+
 class AddNGODisaster(View):
-    def get(self, request):
-        return render(request, "ngo/add_disaster1.html")
     def post(self, request):
-        form= disasterForm(request.POST)
+        print("hhhhh")
+        obj=DisasterTable.objects.all()
+        print(obj)
+        form= disasterForm(request.POST,request.FILES)
         if form.is_valid():
+            print("vvvvvvvvvvvv")
             form.save()
-            return HttpResponse('''<script>alert(" successfully");window.location="/disasterupdate"</script>''')
-        return render(request, "ngo/add_disaster1.html")
+            return HttpResponse('''<script>alert(" successfully");window.location="/Viewdisasterdata"</script>''')
+        return render(request, "ngo/Viewdisasterdata.html",{'val':obj})    
 
 class Dlt_disaster(View):
     def get(self, request, id):
@@ -274,31 +278,36 @@ class Dlt_disaster(View):
 class editNGODisaster(View):
     def get(self, request,id):
         c= DisasterTable.objects.get(id=id)
-        return render(request, "administrator/edit_disaster.html",{'c':c})
+        return render(request, "ngo/edit_disaster1.html",{'c':c})
     def post(self, request,id):
         c= DisasterTable.objects.get(id=id)
         form= disasterForm(request.POST,instance=c)
         if form.is_valid():
             form.save()
             return HttpResponse('''<script>alert(" successfully");window.location="/Viewdisasterdata"</script>''')
-        return render(request, "administrator/add_disaster.html")
+        return render(request, "ngo/Viewdisasterdata.html")
 
 
 class addResources(View):
     # def get(self, request):
     #     return render(request, "ngo/add_resources.html")
     def post(self, request):
-        id= request.session["loginid"]
-        form= resourcesForm(request.POST, request.FILES)
+        loginid= LoginTable.objects.get(id=request.session.get("loginid"))
+        print(request.session.get("loginid"))
+
+        form= resourcesForm(request.POST)
         if form.is_valid():
-            form.LOGIN=id
-            form.save()
+            print("hhhhqqq")
+            c=form.save(commit=False)
+            c.LOGIN=loginid
+            c.save()
             return HttpResponse('''<script>alert("successfully");window.location="/Viewresource"</script>''')
-        return render(request, "ngo/ViewResource.html")
+        obj=ResourceTable.objects.filter(LOGIN__id=request.session.get('loginid')).all()
+        return render(request, "ngo/ViewResource.html",{'val':obj})
  
 class ViewResources(View):
     def get(self, request):
-        obj=ResourceTable.objects.exclude(LOGIN_id= request.session['login_id'])
+        obj=ResourceTable.objects.filter(LOGIN__id=request.session.get('loginid')).all()
         return render(request, "ngo/ViewResource.html",{'val':obj})
 class Dlt_Resources(View):
     def get(self, request, id):

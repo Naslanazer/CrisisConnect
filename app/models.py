@@ -39,9 +39,9 @@ class NGOTable(models.Model):
     
 class ResourceTable(models.Model):
     LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE,null=True,blank=True)
-    Name= models.CharField(max_length=30, null=True, blank=True)
-    Quantity= models.IntegerField(null=True, blank=True)
-    Details= models.CharField(max_length=20, null=True, blank=True)
+    Name= models.CharField(max_length=100, null=True, blank=True)
+    Quantity= models.CharField(max_length=100,null=True, blank=True)
+    Details= models.CharField(max_length=100, null=True, blank=True)
     Date= models.DateField(auto_now_add=True, null=True, blank=True)
 
 class DisasterTable(models.Model):

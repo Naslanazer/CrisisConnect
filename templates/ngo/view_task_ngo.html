@@ -1,0 +1,39 @@
+{% extends 'administrator/base.html' %}
+{%block body%}
+<!-- Main Content -->
+<div class="tbl-div">
+  <div class="content container-fluid">
+      <div class="container-fluid mt-4">
+          <h2 class="mb-4">view_task_ngo</h2>
+          <div class="table-responsive">
+            <table class="table user-table table-striped">
+              <thead>
+                <tr>
+                    <th>Task_no</th>
+                    <th>Task</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {%for i in val%}
+                  <tr>
+                    <td>{{i.Task_no}}</td>
+                    <td>{{i.Task}}</td>
+                    <td>{{i.Date}}</td>
+                    <td>{{i.Time}}</td>
+                    <td>{{i.Status}}</td>
+                    <td>
+                    <a href="delete_user/{{i.LOGIN.id}}" class="btn btn-danger" onclick="return confirm('are you sure to delete this user?')">DELETE</a>
+                  </td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+  </div>
+</div>
+{%endblock%}

@@ -53,3 +53,9 @@ class DisasterTable(models.Model):
 
 class SkillTable(models.Model):
     skill = models.CharField(max_length=30, null=True, blank=True)
+
+class TaskTable(models.Model):
+    Task_no= models.CharField(max_length=100, null=True, blank=True)
+    Task= models.CharField(max_length=100, null=True, blank=True)
+    Date= models.DateField(null=True, blank=True)
+    Status= models.CharField(max_length=30, null=True, blank=True)

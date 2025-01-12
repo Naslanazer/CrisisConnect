@@ -7,8 +7,8 @@ from django.shortcuts import redirect
 from django.views import View
 from django.contrib.auth import logout
 
-from app.models import *
-from crisisconnect.app.serializers import ComplaintTableSerializer, DisasterTableSerializer, DonationTableSerializer, LoginTableSerializer, NGOTableSerializer, ResourceTableSerializer, SkillTableSerializer, UserTableSerializer
+from .models import *
+from .serializers import ComplaintTableSerializer, DisasterTableSerializer, DonationTableSerializer, LoginTableSerializer, NGOTableSerializer, ResourceTableSerializer, SkillTableSerializer, UserTableSerializer
 from.forms import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -234,6 +234,11 @@ class reply(View):
         obj.Reply=reply
         obj.save()
         return HttpResponse('''<script>alert("added successfully");window.location="/viewcomplaints"</script>''')
+   
+class viewtask(View):
+    def get(self, request):
+        obj=DonationTable.objects.all()
+        return render(request, "administrator/ViewDonation.html",{'val':obj})
    
   
   

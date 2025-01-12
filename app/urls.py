@@ -49,5 +49,15 @@ urlpatterns = [
     path('volunteerstatus', ViewVolunteerStatus.as_view(), name="volunteerstatus"),
     path('active_volunteer/<int:id>', active_VolunteerStatus.as_view(), name="active_volunteer"),
     path('inactive_volunteer/<int:id>', inactive_VolunteerStatus.as_view(), name="inactive_volunteer"),
+    ################################api################################
 
+    path('LoginAPI', LoginAPI.as_view(), name="LoginAPI"),
+    path('UserTableAPI', UserTableAPI.as_view(), name="UserTableAPI"),
+    path('DonationTableAPI', DonationTableAPI.as_view(), name="DonationTableAPI"),
+    path('ComplaintTableAPI', ComplaintTableAPI.as_view(), name="ComplaintTableAPI"),
+    path('NGOTableAPI', NGOTableAPI.as_view(), name="NGOTableAPI"),
+    path('ResourceTableAPI',ResourceTableAPI.as_view(), name="ResourceTableAPI"),
+    path('DisasterTableAPI', DisasterTableAPI.as_view(), name="DisasterTableAPI"),
+    path('SkillTableAPI', SkillTableAPI.as_view(), name="SkillTableAPI"),
+    path('userregister', userregister.as_view(), name="userregister"),
 ]

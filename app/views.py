@@ -8,7 +8,11 @@ from django.views import View
 from django.contrib.auth import logout
 
 from app.models import *
+from crisisconnect.app.serializers import ComplaintTableSerializer, DisasterTableSerializer, DonationTableSerializer, LoginTableSerializer, NGOTableSerializer, ResourceTableSerializer, SkillTableSerializer, UserTableSerializer
 from.forms import *
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 # Create your views here.
 
@@ -349,3 +353,140 @@ class inactive_VolunteerStatus(View):
         return HttpResponse('''<script>alert("Updated successfully");window.location="/volunteerstatus"</script>''')
 
     
+################################api################################
+
+class LoginAPI(APIView):
+    def post(self, request):
+        response_dict = {}
+
+        # Get data from the request
+        username = request.data.get("username")
+        password = request.data.get("password")
+
+        # Validate input
+        if not username or not password:
+            response_dict["message"] = "failed"
+            return Response(response_dict, status=status.HTTP_400_BAD_REQUEST)
+
+        # Fetch the user from LoginTable
+        t_user = LoginTable.objects.filter(username=username,password=password).first()
+
+        if not t_user:
+            response_dict["message"] = "failed"
+            return Response(response_dict, status=status.HTTP_401_UNAUTHORIZED)
+
+        # # Check password using check_password
+        # if not check_password(password, t_user.password):
+        #     response_dict["message"] = "failed"
+        #     return Response(response_dict, status=status.HTTP_401_UNAUTHORIZED)
+
+        # Successful login response
+        response_dict["message"] = "success"
+        response_dict["login_id"] = t_user.id
+
+        return Response(response_dict, status=status.HTTP_200_OK)
+
+class UserTableAPI(APIView):
+    def get(self, request):
+        response_dict = {}
+
+        # Fetch all UserTable objects
+        user_table_objects = UserTable.objects.all()
+
+        # Serialize the data
+        serializer = UserTableSerializer(user_table_objects, many=True)
+
+        # Return the serialized data
+        return Response(serializer.data)
+    
+
+class userregister(APIView):
+    def post(self,request):
+        user_serializer=UserTableSerializer(data=request.data)
+        login_serializer=LoginTableSerializer(data=request.data)
+        if user_serializer.is_valid() and login_serializer.is_valid():
+            login_serializer.save()
+            user_serializer.save(LOGIN=login_serializer.instance)
+            return Response(user_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class DonationTableAPI(APIView):
+    def get(self, request):
+        response_dict = {}
+
+        # Fetch all UserTable objects
+        user_table_objects = DonationTable.objects.all()
+
+        # Serialize the data
+        serializer = DonationTableSerializer(user_table_objects, many=True)
+
+        # Return the serialized data
+        return Response(serializer.data)
+    
+class ComplaintTableAPI(APIView):
+    def get(self, request):
+        response_dict = {}
+
+        # Fetch all UserTable objects
+        user_table_objects = ComplaintTable.objects.all()
+
+        # Serialize the data
+        serializer = ComplaintTableSerializer(user_table_objects, many=True)
+
+        # Return the serialized data
+        return Response(serializer.data)
+    
+class NGOTableAPI(APIView):
+    def get(self, request):
+        response_dict = {}
+
+        # Fetch all UserTable objects
+        user_table_objects = NGOTable.objects.all()
+
+        # Serialize the data
+        serializer = NGOTableSerializer(user_table_objects, many=True)
+
+        # Return the serialized data
+        return Response(serializer.data)
+    
+class ResourceTableAPI(APIView):
+    def get(self, request):
+        response_dict = {}
+
+        # Fetch all UserTable objects
+        user_table_objects = ResourceTable.objects.all()
+
+        # Serialize the data
+        serializer = ResourceTableSerializer(user_table_objects, many=True)
+
+        # Return the serialized data
+        return Response(serializer.data)
+    
+class DisasterTableAPI(APIView):
+    def get(self, request):
+        response_dict = {}
+
+        # Fetch all UserTable objects
+        user_table_objects = DisasterTable.objects.all()
+
+        # Serialize the data
+        serializer = DisasterTableSerializer(user_table_objects, many=True)
+
+        # Return the serialized data
+        return Response(serializer.data)
+
+class SkillTableAPI(APIView):
+    def get(self, request):
+        response_dict = {}
+
+        # Fetch all UserTable objects
+        user_table_objects = SkillTable.objects.all()
+
+        # Serialize the data
+        serializer = SkillTableSerializer(user_table_objects, many=True)
+
+        # Return the serialized data
+        return Response(serializer.data)
+
+
+

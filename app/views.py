@@ -147,7 +147,7 @@ class Dltvolunteer(View):
 
 class ViewUser(View):
     def get(self, request):
-        obj=UserTable.objects.filter(Type='user')
+        obj=UserTable.objects.all()
         return render(request, "administrator/ViewUser.html",{'val':obj})
 class DltUser1(View):
     def get(self, request, id):
@@ -237,8 +237,28 @@ class reply(View):
    
 class viewtask(View):
     def get(self, request):
-        obj=DonationTable.objects.all()
-        return render(request, "administrator/ViewDonation.html",{'val':obj})
+        obj=TaskTable.objects.all()
+        return render(request, "administrator/viewtask.html",{'val':obj})
+    
+class admin_task_delete(View):
+    def get(self, request, id):
+        obj = TaskTable.objects.get(id=id)
+        obj.delete()
+        return HttpResponse('''<script>alert("Deleted successfully");window.location="/viewtask"</script>''')
+    
+class addtask(View):
+    def get(self, request):
+        obj=TaskTable.objects.all()
+        return render(request, "administrator/addtask.html",{'val':obj})
+    def post(self, request):
+        form= taskForm(request.POST)
+        if form.is_valid():
+            f=form.save(commit=False)
+            f.Status="pending"
+            f.save()
+            return HttpResponse('''<script>alert("successfully");window.location="/addtask"</script>''')
+        return render(request, "administrator/addtask.html")
+
    
   
   
@@ -357,6 +377,34 @@ class inactive_VolunteerStatus(View):
         obj.save()
         return HttpResponse('''<script>alert("Updated successfully");window.location="/volunteerstatus"</script>''')
 
+class view_task_ngo(View):
+    def get(self, request):
+        obj = TaskTable.objects.all()
+        return render(request, "ngo/view_task_ngo.html", {'val': obj})
+
+class view_volunteer(View):
+    def get(self, request, id):
+        request.session['task_id']=id
+        obj = UserTable.objects.filter(Type='volunteer')
+        return render(request, "ngo/ViewVolunteers.html", {'val': obj})
+class assign_task(View):
+    def get(self, request, id):
+        obj = TaskTable.objects.get(id=request.session['task_id'])
+        obj.Status="assigned"
+        obj.save()
+        obj1 =  AssignTable()
+        obj1.TASK = TaskTable.objects.get(id=request.session['task_id'])
+        obj1.USER = UserTable.objects.get(id=id)
+        obj1.Status = "assigned"
+        obj1.save()
+        return HttpResponse('''<script>alert("Updated successfully");window.location="/view_task_ngo"</script>''')        
+class task_delete(View):
+    def get(self, request, id):
+        obj = TaskTable.objects.get(id=id)
+        obj.delete()
+        return HttpResponse('''<script>alert("Deleted successfully");window.location="/view_task_ngo"</script>''')
+
+    
     
 ################################api################################
 
@@ -492,6 +540,14 @@ class SkillTableAPI(APIView):
 
         # Return the serialized data
         return Response(serializer.data)
+
+class AssignTableAPI(APIView):
+    def post(self, request):
+        task_id = request.data.get("task_id")
+        objects = TaskTable.objects.get(id=task_id)
+        objects.Status = "completed"
+        objects.save()
+        return Response(status=status.HTTP_200_OK)
 
 
 

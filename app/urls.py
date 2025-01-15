@@ -33,6 +33,11 @@ urlpatterns = [
     path('editSkill/<int:id>', editSkill.as_view(), name="EditSkill"),
     path('reply/<int:id>', reply.as_view(), name="Reply"), 
     path('viewtask', viewtask.as_view(), name="viewtask"),
+    path('admin_task_delete/<int:id>',admin_task_delete.as_view(), name="admin_task_delete"),
+    path('addtask', addtask.as_view(), name="addtask"),
+
+
+
     # //////////////////////////// NGO //////////////////////////////////
 
     path('Donationtransaction', Donationtransaction.as_view(), name="Donationtransaction"),
@@ -50,6 +55,9 @@ urlpatterns = [
     path('active_volunteer/<int:id>', active_VolunteerStatus.as_view(), name="active_volunteer"),
     path('inactive_volunteer/<int:id>', inactive_VolunteerStatus.as_view(), name="inactive_volunteer"),
     path('view_task_ngo', view_task_ngo.as_view(), name="view_task_ngo"),
+    path('task_delete/<int:id>',task_delete.as_view(), name="task_delete"),
+    path('view_volunteer/<int:id>',view_volunteer.as_view(), name="view_volunteer"),
+    path('assign_task/<int:id>',assign_task.as_view(), name="assign_task"),
     ################################api################################
 
     path('LoginAPI', LoginAPI.as_view(), name="LoginAPI"),

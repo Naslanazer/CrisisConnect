@@ -1,18 +1,23 @@
+
+
 {% extends 'administrator/base.html' %}
 {%block body%}
 <!-- Main Content -->
 <div class="tbl-div">
   <div class="content container-fluid">
       <div class="container-fluid mt-4">
-          <h2 class="mb-4">viewtask</h2>
+          <h2 class="mb-4">Volunteer</h2>
           <div class="table-responsive">
             <table class="table user-table table-striped">
               <thead>
                 <tr>
-                  <th>Task_no</th>
-                  <th>Task</th>
-                  <th>Date</th>
-                  <th>Time</th>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>address</th>
+                  <th>Skill</th>
                   <th>Status</th>
                   <th></th>
                 </tr>
@@ -20,22 +25,19 @@
               <tbody>
                 {%for i in val%}
                 <tr>
-                  <td>{{i.Task_no}}</td>
-                  <td>{{i.Task}}</td>
-                  <td>{{i.Date}}</td>
-                  <td>{{i.Time}}</td>
+                  <td>{{i.Name}}</td>
+                  <td>{{i.age}}</td>
+                  <td>{{i.Gender}}</td>
+                  <td>{{i.Phone}}</td>
+                  <td>{{i.Email}}</td>
+                  <td>{{i.Address}}</td>
+                  <td>{{i.Skill}}</td>
                   <td>{{i.Status}}</td>
                   <td>
-                    <a href="delete_user/{{i.LOGIN.id}}" class="btn btn-danger" onclick="return confirm('are you sure to delete this user?')">DELETE</a>
+                    <a href="/assign_task/{{i.id}}" class="btn btn-danger">ASSIGN</a>
                   </td>
                 </tr>
                 {%endfor%}
-                <tr>
-                  <td colspan="6">
-                    <a href="/addtask" class="btn btn-secondary" >Add New Task</a>
-
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>

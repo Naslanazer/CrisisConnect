@@ -57,5 +57,11 @@ class SkillTable(models.Model):
 class TaskTable(models.Model):
     Task_no= models.CharField(max_length=100, null=True, blank=True)
     Task= models.CharField(max_length=100, null=True, blank=True)
-    Date= models.DateField(null=True, blank=True)
+    Date= models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    Status= models.CharField(max_length=30, null=True, blank=True)
+
+class AssignTable(models.Model):
+    TASK= models.ForeignKey(TaskTable, on_delete=models.CASCADE)
+    USER= models.ForeignKey(UserTable, on_delete=models.CASCADE)
+    AssignDate= models.DateTimeField(auto_now_add=True, null=True, blank=True)
     Status= models.CharField(max_length=30, null=True, blank=True)

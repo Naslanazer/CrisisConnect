@@ -17,3 +17,8 @@ class NGORegForm(forms.ModelForm):
     class Meta:
         model= NGOTable
         fields=['Name','Email','Phone','Service', 'Specialization']
+
+class taskForm(forms.ModelForm):
+    class Meta:
+        model= TaskTable
+        fields=['Task_no','Task']

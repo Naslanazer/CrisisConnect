@@ -10,253 +10,324 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        :root {
-            --bg-color: #f4ebdb;
-            --bg-color2: #dda845;
-            --bg-color-hover: #5d400a;
-            --border-color: #495057;
-            --danger-bg-color: #dc3545;
-            --text-color1: #333;
-            --text-color2: #fff;
-            --text-color3: #484a4a;
-            --table-td-color: #00ADB5;
-            --accept-color: #28a745;
-            --view-color: #065bb6;
-        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
 
-        a {
-            text-decoration: none;
-            color: #333;
-        }
+body {
+  background-color: #f9f4eb;
+  color: #333;
+}
 
-        .login-btn {
-            background-color: var(--bg-color-hover);
-            color: var(--text-color2);
-            border-radius: 20px;
-        }
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10%;
+  background-color: #f9f4eb;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-        .navbar {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: var(--bg-color2);
+.logo {
+  font-family: 'Oswald', sans-serif; /* Apply the strong branded font */
+  font-size: 1.5rem; /* Adjust font size as needed */
+  font-weight: 700; /* Bold font */
+  color: #691818; /* Strong text color */
+  letter-spacing: -2px; /* Adds spacing for a modern look */
+  word-spacing: -3px; /* Optional: Shrink spacing between words */
+}
 
-            h2 {
-                color: var(--bg-color-hover);
-            }
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+}
 
-            .nav-items a {
-                margin-left: 20px;
-                font-weight: 600;
-                text-decoration: none;
-            }
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
 
-            .nav-items a:hover {
-                color: #fff;
-            }
-        }
+.signup-btn {
+  background-color: #c69a5a;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-        .main {
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('https://cdn.aaslh.org/wp-content/uploads/sites/23/2017/08/flood.jpg');
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            border-radius: 10px;
-            margin: 10px 20px;
-            text-align: center;
-            h2{
-                color: var(--bg-color-hover);
-                font-size: 50px;
-            }
-            p{
-                color: #000000;
-                width: 60%;
-            }
-        }
+.signup-btn:hover {
+  background-color: #b68a4d;
+}
 
-        .about {
-            padding: 30px 60px;
-            text-align: center;
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 100vh;
+  background: url('media/bg.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
 
-            span {
-                font-weight: 600;
-            }
-        }
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
 
-        .impact {
-            text-align: center;
-            background-color: var(--bg-color2);
-            color: var(--bg-color-hover);
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
 
-            .data-div {
-                display: flex;
-                justify-content: center;
-                gap: 80px;
-                align-items: center;
-                padding: 20px 0;
+.hero-content h1 {
+  font-size: 3.5rem;
+  line-height: 1.2;
+  font-weight: bold;
+}
 
-                .data {
-                    padding: 20px;
-                    border-radius: 10px;
-                    margin: 10px;
-                }
-            }
-        }
-       .service-div{
-        text-align: center;
-        h2{
-            margin-bottom: 40px;
-        }
-       }
-       .services{
-           display: flex;
-           justify-content: center;
-           column-gap: 150px;
-           row-gap: 20px;
-           flex-wrap: wrap;
-           padding: 20px;
-       }
-       .service{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        gap: 10px;
-        padding: 20px;
-        width: 350px;
-        text-align: left;
-        i{
-            font-size: 80px;
-        }
-       }
-       .footer{
-        background-color: var(--border-color);
-        display: flex;
-        justify-content: center;
-        gap: 100px;
-            color: #fff;
-       }
-    </style>
+.hero-content p {
+  font-size: 1.2rem;
+  margin: 20px 0;
+}
+
+.cta-btn {
+  background-color: #c69a5a;
+  color: #fff;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  background-color: #b68a4d;
+}
+
+/* About Section */
+.about {
+  padding: 40px;
+  text-align: center;
+}
+
+.about p {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.read-more {
+  text-decoration: none;
+  color: #c69a5a;
+  font-weight: bold;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+
+/* Our Impact Section */
+.impact {
+  background-color: #f2e4d8;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.impact h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.impact-cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.impact-card {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.impact-card h3 {
+  font-size: 2rem;
+  color: #c69a5a;
+}
+
+.impact-card p {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Features Section */
+.features {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.features h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.features-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.feature {
+  width: 200px;
+  text-align: center;
+}
+
+.feature i {
+  font-size: 2rem;
+  color: #c89c58;
+}
+
+.feature h3 {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.feature p {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #666;
+}
+.footer {
+  background-color: #333; /* Dark background */
+  color: #f9f4eb; /* Light text for contrast */
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  width: 100%; /* Make the footer span the entire screen width */
+  position: relative; /* Ensures proper placement below all content */
+  bottom: 0;
+}
+
+   </style>
 </head>
 
 <body>
-    <div class="navbar navbar-expand-lg py-2 px-5 container-fluid">
-        <h2>CrisisConnect</h2>
-        <div class="nav-items">
-            <a href="">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
+    <!-- Navbar -->
+ <header>
+    <nav class="navbar">
+      <div class="logo">CrisisConnect</div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <a href="#features">Services</a>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="/signup" class="signup-btn">Sign Up</a> <!-- Updated -->
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>Together, <br> we overcome.</h1>
+        <p>A unified platform connecting resources, responders, and communities for faster, coordinated disaster recovery.</p>
+        <a href="/signup" class="cta-btn">Join Us Today!</a> <!-- Updated -->
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+      <p>
+        Our Disaster Response Coordination Platform is a unified solution designed to streamline resource allocation, 
+        volunteer coordination, and community engagement during and after natural disasters. With a focus on real-time 
+        collaboration, the platform connects donors, NGOs, volunteers, and public users, ensuring that aid reaches those 
+        in need efficiently and effectively.
+      </p>
+    </section>
+
+    <!-- Our Impact Section -->
+    <section class="impact">
+      <h2><b>Our Impact</b></h2>
+      <div class="impact-cards">
+        <div class="impact-card">
+          <h3><b>50K+</b></h3>
+          <p>Total Donations</p>
         </div>
-        <a href="/login" class="btn login-btn py-2 px-4">Sign In</a>
-    </div>
-    <div class="main">
-        <h2>Together, <br>
-            We overcome.</h2>
-        <p>A unified platform connecting resources, responders, and communities
-           for faster, coordinated disaster recovery.</p>
-        <a href="/signup" class="btn login-btn py-2 px-4">JOIN US TODAY!</a>
-    </div>
-    <div class="about" id="about">
-        <h2>About Us</h2>
-        <p><span>CrisisConnect</span> is a unified platform designed to streamlinc resource allocation. 
-            volunteer coordination, and community engagement during and after natural
-            disasters.With a focus on real-time collaboration, the platform connects 
-            donors, NGOs, volunteers, and public users, ensuring that aid reaches those in 
-            need efficiently and effectively.</p>
-    </div>
-    <div class="impact py-4">
-        <h2>OUR IMPACT</h2>
-        <div class="data-div">
-            <div class="data">
-                <h1>50K+</h1>
-                <p>Total Donations</p>
-            </div>
-            <div class="data">
-                <h1>115</h1>
-                <p>Active volunteers</p>
-            </div>
-            <div class="data">
-                <h1>25+</h1>
-                <p>NGO Partnerships</p>
-            </div>
+        <div class="impact-card">
+          <h3><b>115</b></h3>
+          <p>Active Volunteers</p>
         </div>
-    </div>
-    <div class="service-div py-4" id="services">
-        <h2>Our Features</h2>
-        <div class="services">
-            <div class="service">
-                <i class="fa-solid fa-location-dot"></i>
-                <div class="cnt">
-                    <h3>Real-Time Disaster alerts</h3>
-                    <p>receive instant notifications about natural disasters and emergencies in your area.</p>
-                </div>
-            </div>
-
-            <div class="service">
-                <i class="fa-regular fa-comment-dots"></i>
-                <div class="cnt">
-                    <h3>Interactive disaster mapping</h3>
-                    <p>View real time maps, highlighting affected areas, evacuation routes and safe zones.</p>
-                </div>
-            </div>
-
-            <div class="service">
-                <i class="fa-solid fa-briefcase-medical"></i>
-                <div class="cnt">
-                    <h3>Resource allocation</h3>
-                    <p>streamline the distribution of essential resources like food, water and medical aid.</p>
-                </div>
-            </div>
-
-            <div class="service">
-                <i class="fa-solid fa-handshake-angle"></i>
-                <div class="cnt">
-                    <h3>Volunteer Coordination</h3>
-                    <p>Connect with volunteers and Organizations to offer or receive help during crisis.</p>
-                </div>
-            </div>
-
-            <div class="service">
-                <i class="fa-solid fa-truck-medical"></i>
-                <div class="cnt">
-                    <h3>Emergency Contact Database</h3>
-                    <p>Access a directory of emergency services, shelters and support Organizations.</p>
-                </div>
-            </div>
-
-            <div class="service">
-                <i class="fas fa-users"></i>
-                <div class="cnt">
-                    <h3>Community</h3>
-                    <p>Connect with volunteers and Organizations to offer or receive help during crisis.</p>
-                </div>
-            </div>
-
+        <div class="impact-card">
+          <h3><b>25+</b></h3>
+          <p>NGO Partnerships</p>
         </div>
-    </div>
-    <div class="footer py-4" id="contact">
-       <h2>CrisisConnect</h2>
-       <div class="div">
-        <p>crisisConnect@gmail.com</p>
-        <p>+91 9876543211</p>
-       </div>
-    </div>
+      </div>
+    </section>
 
-
-    <script src="scripts.js"></script>
+    <!-- Our Features Section -->
+    <section class="features" id="features">
+      <h2><b>Our Features</b></h2>
+      <br>
+      <div class="features-container">
+        <div class="feature">
+          <i class="fas fa-map-marker-alt"></i>
+          <h3>Real-time Disaster updates</h3>
+          <p>Receive instant updates about natural disasters and emergencies in your area.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-map"></i>
+          <h3>Interactive Disaster Mapping</h3>
+          <p>View real-time maps, highlighting affected areas, evacuation routes, and safe zones.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-hands-helping"></i>
+          <h3>Volunteer Coordination</h3>
+          <p>Connect with volunteers and organizations to offer or receive help during crises.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-database"></i>
+          <h3>Emergency Contact Database</h3>
+          <p>Access a directory of emergency services, shelters, and support organizations.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-people-arrows"></i>
+          <h3>Community</h3>
+          <p>Connect with volunteers and organizations to offer or receive help during crises.</p>
+        </div>
+        <br></n>
+        <footer class="footer" id="contact">
+          <p>CrisisConnect</p>
+          <p>Email: crisisConnect@gmail.com | Phone: +91 9876543211</p>
+          <p>&copy; <span id="year"></span> CrisisConnect. All rights reserved.</p>
+        </footer>
+        <script>
+          document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+        
+      </div>
+    </section>
+  </main>
 </body>
-
 </html>

@@ -422,7 +422,7 @@ class LoginAPI(APIView):
             return Response(response_dict, status=status.HTTP_400_BAD_REQUEST)
 
         # Fetch the user from LoginTable
-        t_user = LoginTable.objects.filter(username=username,password=password).first()
+        t_user = LoginTable.objects.filter(Username=username,Password=password).first()
 
         if not t_user:
             response_dict["message"] = "failed"
@@ -436,10 +436,11 @@ class LoginAPI(APIView):
         # Successful login response
         response_dict["message"] = "success"
         response_dict["login_id"] = t_user.id
+        response_dict["user_type"] = t_user.Type
 
         return Response(response_dict, status=status.HTTP_200_OK)
 
-class UserTableAPI(APIView):
+class UserAPI(APIView):
     def get(self, request):
         response_dict = {}
 
@@ -463,7 +464,7 @@ class userregister(APIView):
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class DonationTableAPI(APIView):
+class DonationAPI(APIView):
     def get(self, request):
         response_dict = {}
 
@@ -476,7 +477,7 @@ class DonationTableAPI(APIView):
         # Return the serialized data
         return Response(serializer.data)
     
-class ComplaintTableAPI(APIView):
+class ComplaintAPI(APIView):
     def get(self, request):
         response_dict = {}
 
@@ -489,7 +490,7 @@ class ComplaintTableAPI(APIView):
         # Return the serialized data
         return Response(serializer.data)
     
-class NGOTableAPI(APIView):
+class NGOAPI(APIView):
     def get(self, request):
         response_dict = {}
 
@@ -502,7 +503,7 @@ class NGOTableAPI(APIView):
         # Return the serialized data
         return Response(serializer.data)
     
-class ResourceTableAPI(APIView):
+class ResourceAPI(APIView):
     def get(self, request):
         response_dict = {}
 
@@ -515,7 +516,7 @@ class ResourceTableAPI(APIView):
         # Return the serialized data
         return Response(serializer.data)
     
-class DisasterTableAPI(APIView):
+class DisasterAPI(APIView):
     def get(self, request):
         response_dict = {}
 
@@ -528,7 +529,7 @@ class DisasterTableAPI(APIView):
         # Return the serialized data
         return Response(serializer.data)
 
-class SkillTableAPI(APIView):
+class SkillAPI(APIView):
     def get(self, request):
         response_dict = {}
 
@@ -541,7 +542,7 @@ class SkillTableAPI(APIView):
         # Return the serialized data
         return Response(serializer.data)
 
-class AssignTableAPI(APIView):
+class AssignAPI(APIView):
     def post(self, request):
         task_id = request.data.get("task_id")
         objects = TaskTable.objects.get(id=task_id)

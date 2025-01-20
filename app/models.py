@@ -18,7 +18,7 @@ class UserTable(models.Model):
     Status = models.CharField(max_length=30, null=True, blank=True)
  
 class DonationTable(models.Model):
-    USER= models.ForeignKey(UserTable, on_delete=models.CASCADE)
+    USER= models.ForeignKey(UserTable, on_delete=models.CASCADE,null=True,blank=True)
     Amount= models.FloatField(null=True, blank=True)
     Description=models.CharField(max_length=20, null=True, blank=True)
     Date= models.DateField(null=True, blank=True)
@@ -50,6 +50,7 @@ class DisasterTable(models.Model):
     Details= models.CharField(max_length=125, null=True, blank=True)
     Location= models.CharField(max_length=20, null=True, blank=True)
     Weather= models.CharField(max_length=20, null=True, blank=True)
+    created_at=models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
 class SkillTable(models.Model):
     skill = models.CharField(max_length=30, null=True, blank=True)

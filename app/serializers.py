@@ -13,15 +13,28 @@ class UserTableSerializer(serializers.ModelSerializer):
         model = UserTable
         fields =['Name', 'age','Gender','Phone','Email','Address','Type','Skill','Status']
 
+class profileupdateAPISerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserTable
+        fields =['Name', 'age','Gender','Phone','Email','Address','Type','Skill']
+
 class DonationTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = DonationTable
         fields = ['Amount', 'Description', 'Date']
+class DonationTableSerializer1(serializers.ModelSerializer):
+    class Meta:
+        model = DonationTable
+        fields = ['USER','Amount']
 
 class ComplaintTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = ComplaintTable
         fields = ['Complaint', 'Reply', 'Date']
+class ComplaintTableSerializer1(serializers.ModelSerializer):
+    class Meta:
+        model = ComplaintTable
+        fields = ['USER','Complaint']
 
 class NGOTableSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,14 +44,19 @@ class NGOTableSerializer(serializers.ModelSerializer):
 class ResourceTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResourceTable
-        fields = ['Name', 'Quantity', 'Details', 'Date']
+        fields = ['LOGIN','Name', 'Quantity', 'Details', 'Date']
 
 class DisasterTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = DisasterTable
-        fields = ['Image', 'Disaster', 'Details', 'Location', 'Weather']
+        fields = ['Image', 'Disaster', 'Details', 'Location', 'Weather','created_at']
 
 class SkillTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = SkillTable
         fields = ['skill']
+
+class TaskTableSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TaskTable
+        fields = ['Task_no', 'Task', 'Date', 'Status']

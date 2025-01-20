@@ -8,7 +8,7 @@ from django.views import View
 from django.contrib.auth import logout
 
 from .models import *
-from .serializers import ComplaintTableSerializer, DisasterTableSerializer, DonationTableSerializer, LoginTableSerializer, NGOTableSerializer, ResourceTableSerializer, SkillTableSerializer, UserTableSerializer
+from .serializers import ComplaintTableSerializer, ComplaintTableSerializer1, DisasterTableSerializer, DonationTableSerializer, DonationTableSerializer1, LoginTableSerializer, NGOTableSerializer, ResourceTableSerializer, SkillTableSerializer, TaskTableSerializer, UserTableSerializer, profileupdateAPISerializer
 from.forms import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -441,14 +441,14 @@ class LoginAPI(APIView):
         return Response(response_dict, status=status.HTTP_200_OK)
 
 class UserAPI(APIView):
-    def get(self, request):
+    def get(self, request,id):
         response_dict = {}
 
         # Fetch all UserTable objects
-        user_table_objects = UserTable.objects.all()
+        user_table_objects = UserTable.objects.filter(LOGIN__id=id).first()
 
         # Serialize the data
-        serializer = UserTableSerializer(user_table_objects, many=True)
+        serializer = UserTableSerializer(user_table_objects)
 
         # Return the serialized data
         return Response(serializer.data)
@@ -476,6 +476,14 @@ class DonationAPI(APIView):
 
         # Return the serialized data
         return Response(serializer.data)
+    def post(self, request,lid):
+        userlid=UserTable.objects.get(LOGIN=lid)
+        user_serializer=DonationTableSerializer1(data=request.data)
+        if user_serializer.is_valid():
+            user_serializer.save(USER=userlid)
+            user_serializer.save()
+            return Response(user_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class ComplaintAPI(APIView):
     def get(self, request):
@@ -489,7 +497,12 @@ class ComplaintAPI(APIView):
 
         # Return the serialized data
         return Response(serializer.data)
-    
+    def post(self, request):
+        user_serializer=ComplaintTableSerializer1(data=request.data)
+        if user_serializer.is_valid():
+            user_serializer.save()
+            return Response(user_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class NGOAPI(APIView):
     def get(self, request):
         response_dict = {}
@@ -515,16 +528,22 @@ class ResourceAPI(APIView):
 
         # Return the serialized data
         return Response(serializer.data)
+    def post(self, request):
+        user_serializer=ResourceTableSerializer(data=request.data)
+        if user_serializer.is_valid():
+            user_serializer.save()
+            return Response(user_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class DisasterAPI(APIView):
     def get(self, request):
-        response_dict = {}
+    
 
         # Fetch all UserTable objects
-        user_table_objects = DisasterTable.objects.all()
+        user_table_objects = DisasterTable.objects.last()
 
         # Serialize the data
-        serializer = DisasterTableSerializer(user_table_objects, many=True)
+        serializer = DisasterTableSerializer(user_table_objects)
 
         # Return the serialized data
         return Response(serializer.data)
@@ -550,5 +569,37 @@ class AssignAPI(APIView):
         objects.save()
         return Response(status=status.HTTP_200_OK)
 
+class TaskAPI(APIView):
+    def get(self, request):
+        response_dict = {}
+
+        # Fetch all UserTable objects
+        user_table_objects = TaskTable.objects.all()
+
+        # Serialize the data
+        serializer = TaskTableSerializer(user_table_objects, many=True)
+
+        # Return the serialized data
+        return Response(serializer.data)
+
+class profileupdateAPI(APIView):
+    def get(self, request):
+        response_dict = {}
+
+        # Fetch all UserTable objects
+        user_table_objects = UserTable.objects.all()
+
+        # Serialize the data
+        serializer = profileupdateAPISerializer(user_table_objects, many=True)
+
+        # Return the serialized data
+        return Response(serializer.data)
+    def put(self, request,id):
+        user = UserTable.objects.get(LOGIN__id=id)
+        serializer = profileupdateAPISerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

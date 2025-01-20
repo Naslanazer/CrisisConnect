@@ -61,12 +61,14 @@ urlpatterns = [
     ################################api################################
 
     path('LoginAPI', LoginAPI.as_view(), name="LoginAPI"),
-    path('UserTableAPI', UserTableAPI.as_view(), name="UserTableAPI"),
-    path('DonationTableAPI', DonationTableAPI.as_view(), name="DonationTableAPI"),
-    path('ComplaintTableAPI', ComplaintTableAPI.as_view(), name="ComplaintTableAPI"),
-    path('NGOTableAPI', NGOTableAPI.as_view(), name="NGOTableAPI"),
-    path('ResourceTableAPI',ResourceTableAPI.as_view(), name="ResourceTableAPI"),
-    path('DisasterTableAPI', DisasterTableAPI.as_view(), name="DisasterTableAPI"),
-    path('SkillTableAPI', SkillTableAPI.as_view(), name="SkillTableAPI"),
+    path('UserAPI/<int:id>', UserAPI.as_view(), name="UserAPI"),
+    path('profileupdateAPI/<int:id>', profileupdateAPI.as_view(),name="profileupdateAPI"),
+    path('DonationAPI/<int:lid>/', DonationAPI.as_view(), name="DonationAPI"),
+    path('ComplaintAPI', ComplaintAPI.as_view(), name="ComplaintAPI"),
+    path('NGOAPI', NGOAPI.as_view(), name="NGOAPI"),
+    path('ResourceAPI',ResourceAPI.as_view(), name="ResourceAPI"),
+    path('DisasterAPI', DisasterAPI.as_view(), name="DisasterAPI"),
+    path('SkillAPI', SkillAPI.as_view(), name="SkillAPI"),
     path('userregister', userregister.as_view(), name="userregister"),
+    path('TaskAPI', TaskAPI.as_view(), name="TaskAPI"),
 ]

@@ -22,3 +22,8 @@ class taskForm(forms.ModelForm):
     class Meta:
         model= TaskTable
         fields=['Task_no','Task']
+
+class ResourcelimitForm(forms.ModelForm):
+    class Meta:
+        model = Resourcelimit
+        fields = ['resourcecategory', 'resourcelimit']

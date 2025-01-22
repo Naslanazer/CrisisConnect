@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resource List</title>
+</head>
+<body>
+    <h2>Resource List</h2>
+    <a href="{% url 'create_resource' %}">Add New Resource</a>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Resource category</th>
+            <th>Resource Limit</th>
+
+            <th>Actions</th>
+        </tr>
+        {% for resource in resourcelimits %}
+        <tr>
+            <td>{{ resource.id }}</td>
+            <td>{{ resource.resourcecategory }}</td>
+            <td>{{ resource.resourcelimit }}</td>
+
+            <td>
+                <a href="{% url 'update_resource' resource.id %}">Edit</a>
+                <a href="{% url 'delete_resource' resource.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resource Form</title>
+</head>
+<body>
+    <h2>Resource Form</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="foodlimit">Resource category:</label>
+        <input type="text" id="foodlimit" name="resourcecategory" value="{{ form.resourcecategory.value|default:'' }}" class="form-control"><br>
+
+        <label for="clothlimit">Resourcelimit:</label>
+        <input type="text" id="clothlimit" name="resourcelimit" value="{{ form.resourcelimit.value|default:'' }}" class="form-control"><br>
+
+        
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

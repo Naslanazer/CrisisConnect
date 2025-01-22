@@ -58,6 +58,11 @@ urlpatterns = [
     path('task_delete/<int:id>',task_delete.as_view(), name="task_delete"),
     path('view_volunteer/<int:id>',view_volunteer.as_view(), name="view_volunteer"),
     path('assign_task/<int:id>',assign_task.as_view(), name="assign_task"),
+    path('resourcelimit/', ListResourcelimitView.as_view(), name='resource_list'),
+    path('resourcelimit/new/', CreateResourcelimitView.as_view(), name='create_resource'),
+    path('updateresource/<int:pk>/', UpdateResourcelimitView.as_view(), name='update_resource'),
+    path('deleteresource/<int:pk>/', DeleteResourcelimitView.as_view(), name='delete_resource'),
+
     ################################api################################
 
     path('LoginAPI', LoginAPI.as_view(), name="LoginAPI"),
@@ -67,8 +72,12 @@ urlpatterns = [
     path('ComplaintAPI', ComplaintAPI.as_view(), name="ComplaintAPI"),
     path('NGOAPI', NGOAPI.as_view(), name="NGOAPI"),
     path('ResourceAPI',ResourceAPI.as_view(), name="ResourceAPI"),
+    path('ResourcelimitAPI',ResourcelimitAPI.as_view(), name="ResourcelimitAPI"),
     path('DisasterAPI', DisasterAPI.as_view(), name="DisasterAPI"),
     path('SkillAPI', SkillAPI.as_view(), name="SkillAPI"),
     path('userregister', userregister.as_view(), name="userregister"),
     path('TaskAPI', TaskAPI.as_view(), name="TaskAPI"),
+    path('TaskupdateAPI',TaskupdateAPI.as_view(),name='TaskupdateAPI'),
+    path('Viewvolunteerscount',Viewvolunteerscount.as_view(),name='Viewvolunteerscount'),
+    path('DisasterMapAPI', DisasterMapAPI.as_view(), name="DisasterMapAPI"),
 ]

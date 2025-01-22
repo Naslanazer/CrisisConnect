@@ -46,6 +46,11 @@ class ResourceTableSerializer(serializers.ModelSerializer):
         model = ResourceTable
         fields = ['LOGIN','Name', 'Quantity', 'Details', 'Date']
 
+class Resourcelimitserializer(serializers.ModelSerializer):
+    class Meta:
+        model = Resourcelimit
+        fields = ['id','resourcecategory','resourcelimit','resourcepercentage']
+
 class DisasterTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = DisasterTable
@@ -60,3 +65,8 @@ class TaskTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskTable
         fields = ['Task_no', 'Task', 'Date', 'Status']
+
+class TaskTableSerializer1(serializers.ModelSerializer):
+    class Meta:
+        model = TaskTable
+        fields = ['Status']

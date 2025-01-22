@@ -1,14 +1,14 @@
 
 from http.client import HTTPResponse
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views import View
 from django.shortcuts import redirect
 from django.views import View
 from django.contrib.auth import logout
 
 from .models import *
-from .serializers import ComplaintTableSerializer, ComplaintTableSerializer1, DisasterTableSerializer, DonationTableSerializer, DonationTableSerializer1, LoginTableSerializer, NGOTableSerializer, ResourceTableSerializer, SkillTableSerializer, TaskTableSerializer, UserTableSerializer, profileupdateAPISerializer
+from .serializers import ComplaintTableSerializer, ComplaintTableSerializer1, DisasterTableSerializer, DonationTableSerializer, DonationTableSerializer1, LoginTableSerializer, NGOTableSerializer, ResourceTableSerializer, Resourcelimitserializer, SkillTableSerializer, TaskTableSerializer, TaskTableSerializer1, UserTableSerializer, profileupdateAPISerializer
 from.forms import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -20,7 +20,11 @@ from rest_framework import status
 
 class home(View):
     def get(self,request):
-        return render(request,"home.html")
+        volcount=  UserTable.objects.count()
+        total_amount = DonationTable.objects.aggregate(total=Sum('Amount'))['total']
+        total_amount = total_amount or 0
+        ngocount = NGOTable.objects.count()        
+        return render(request,"home.html",{'volcount':volcount,'total_amount':total_amount,'ngocount':ngocount},)
 
 
 class Logout(View):
@@ -348,7 +352,7 @@ class editNGOresource(View):
     def get(self, request,id):
         c= ResourceTable.objects.get(id=id)
         print(c)
-        return render(request, "administrator/edit_resource.html",{'c':c, 'date': str(c.Date)})
+        return render(request, "ngo/edit_resource.html",{'c':c, 'date': str(c.Date)})
     def post(self, request,id):
         obj = ResourceTable.objects.get(id=id)
         form = resourcesForm(request.POST, instance=obj)
@@ -404,7 +408,50 @@ class task_delete(View):
         obj.delete()
         return HttpResponse('''<script>alert("Deleted successfully");window.location="/view_task_ngo"</script>''')
 
-    
+# Create View
+class CreateResourcelimitView(View):
+    def get(self, request):
+        form = ResourcelimitForm()
+        return render(request, 'administrator/resourcelimit_form.html', {'form': form})
+
+    def post(self, request):
+        form = ResourcelimitForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('resource_list')
+        return render(request, 'administrator/resourcelimit_form.html', {'form': form})
+
+# List (Read) View
+class ListResourcelimitView(View):
+    def get(self, request):
+        resourcelimits = Resourcelimit.objects.all()
+        return render(request, 'administrator/resourcelimit_list.html', {'resourcelimits': resourcelimits})
+
+# Update View
+class UpdateResourcelimitView(View):
+    def get(self, request, pk):
+        resourcelimit = get_object_or_404(Resourcelimit, pk=pk)
+        form = ResourcelimitForm(instance=resourcelimit)
+        return render(request, 'administrator/resourcelimit_form.html', {'form': form})
+
+    def post(self, request, pk):
+        resourcelimit = get_object_or_404(Resourcelimit, pk=pk)
+        form = ResourcelimitForm(request.POST, instance=resourcelimit)
+        if form.is_valid():
+            form.save()
+            return redirect('resource_list')
+        return render(request, 'administrator/resourcelimit_form.html', {'form': form})
+
+# Delete View
+class DeleteResourcelimitView(View):
+    def get(self, request, pk):
+        resourcelimit = get_object_or_404(Resourcelimit, pk=pk)
+        return render(request, 'administrator/resourcelimit_confirm_delete.html', {'resourcelimit': resourcelimit})
+
+    def post(self, request, pk):
+        resourcelimit = get_object_or_404(Resourcelimit, pk=pk)
+        resourcelimit.delete()
+        return redirect('resource_list')  
     
 ################################api################################
 
@@ -516,16 +563,27 @@ class NGOAPI(APIView):
         # Return the serialized data
         return Response(serializer.data)
     
-class ResourceAPI(APIView):
+class ResourcelimitAPI(APIView):
     def get(self, request):
         response_dict = {}
 
         # Fetch all UserTable objects
-        user_table_objects = ResourceTable.objects.all()
+        user_table_objects = Resourcelimit.objects.all()
 
         # Serialize the data
-        serializer = ResourceTableSerializer(user_table_objects, many=True)
+        serializer = Resourcelimitserializer(user_table_objects, many=True)
 
+        # Return the serialized data
+        return Response(serializer.data)
+from rest_framework.permissions import AllowAny
+class ResourceAPI(APIView):
+    permission_classes=[AllowAny]
+    def get(self, request):
+        response_dict = {}
+        # Fetch all UserTable objects
+        user_table_objects = ResourceTable.objects.all()
+        # Serialize the data
+        serializer = ResourceTableSerializer(user_table_objects, many=True)
         # Return the serialized data
         return Response(serializer.data)
     def post(self, request):
@@ -536,6 +594,19 @@ class ResourceAPI(APIView):
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class DisasterAPI(APIView):
+    def get(self, request):
+    
+
+        # Fetch all UserTable objects
+        user_table_objects = DisasterTable.objects.last()
+
+        # Serialize the data
+        serializer = DisasterTableSerializer(user_table_objects)
+
+        # Return the serialized data
+        return Response(serializer.data)
+
+class DisasterMapAPI(APIView):
     def get(self, request):
     
 
@@ -578,9 +649,23 @@ class TaskAPI(APIView):
 
         # Serialize the data
         serializer = TaskTableSerializer(user_table_objects, many=True)
-
+        print(serializer.data)
         # Return the serialized data
         return Response(serializer.data)
+class TaskupdateAPI(APIView):
+    def put(self, request):
+        id = request.data.get("task_id")
+        print(id)
+        # Fetch all UserTable objects
+        user_table_objects = TaskTable.objects.filter(id=id).first()
+
+        # Serialize the data
+        serializer = TaskTableSerializer1(user_table_objects, data=request.data ,partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class profileupdateAPI(APIView):
     def get(self, request):
@@ -601,5 +686,23 @@ class profileupdateAPI(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
+from rest_framework import serializers
+from .models import DonationTable
+
+class DonationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DonationTable
+        fields = ['Amount']  # Include only relevant fields
+
+from django.db.models import Sum
+class Viewvolunteerscount(APIView):
+    def get(self,request):
+        v=UserTable.objects.count()
+        print(v)
+        total_amount = DonationTable.objects.aggregate(total=Sum('Amount'))['total']
+        total_amount = total_amount or 0  # Handle None if there are no donations
+        return Response({"total_donation": total_amount,"volunteercount":v}, status=status.HTTP_200_OK)
+       
 

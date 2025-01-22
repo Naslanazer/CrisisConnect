@@ -36,13 +36,43 @@ class NGOTable(models.Model):
     Phone= models.BigIntegerField(null=True, blank=True)
     Service= models.CharField(max_length=20, null=True, blank=True)
     Specialization= models.CharField(max_length=20, null=True, blank=True)
+class Resourcelimit(models.Model):
+    resourcecategory =  models.CharField(max_length=100, null=True, blank=True)
+    resourcelimit =  models.CharField(max_length=100, null=True, blank=True)
+    resourcepercentage = models.IntegerField(null=True, blank=True)
+
     
 class ResourceTable(models.Model):
     LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE,null=True,blank=True)
-    Name= models.CharField(max_length=100, null=True, blank=True)
+    Name= models.ForeignKey(Resourcelimit,on_delete=models.CASCADE, null=True, blank=True)
     Quantity= models.CharField(max_length=100,null=True, blank=True)
     Details= models.CharField(max_length=100, null=True, blank=True)
     Date= models.DateField(auto_now_add=True, null=True, blank=True)
+    def calculate_percentage(self):
+        """
+        Calculate the percentage of the resource used.
+        """
+        if self.Name and self.Quantity:
+            try:
+                resource_limit = int(self.Name.resourcelimit)
+                quantity = int(self.Quantity)
+                if resource_limit > 0:
+                    return (quantity / resource_limit) * 100
+            except (ValueError, TypeError):
+                # Handle invalid or missing values gracefully
+                return None
+        return None
+
+    def save(self, *args, **kwargs):
+        """
+        Override the save method to update the resource percentage
+        in the associated Resourcelimit model.
+        """
+        percentage = self.calculate_percentage()
+        if self.Name and percentage is not None:
+            self.Name.resourcepercentage = int(percentage)  # Save as an integer
+            self.Name.save()  # Update the Resourcelimit instance
+        super(ResourceTable, self).save(*args, **kwargs)  # Save the ResourceTable instance
 
 class DisasterTable(models.Model):
     Image= models.FileField()

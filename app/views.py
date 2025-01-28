@@ -97,7 +97,11 @@ class DeleteNgo(View):
 class adminDashboard(View):
     def get(self, request):
         obj=DisasterTable.objects.all()
-        return render(request, "administrator/admindashboard.html",{'val':obj})
+        usercount=  UserTable.objects.count()
+        total_amount = DonationTable.objects.aggregate(total=Sum('Amount'))['total']
+        total_amount = total_amount or 0
+        ngocount = NGOTable.objects.count()        
+        return render(request, "administrator/admindashboard.html",{'val':obj,'usercount':usercount,'total_amount':total_amount,'ngocount':ngocount})
 
     
 class ViewDonation(View):
@@ -282,8 +286,13 @@ class Dlt_Donationtransaction(View):
     
 class ngodashboard(View):
     def get(self, request):
-        obj=DonationTable.objects.all()
-        return render(request, "ngo/ngodashboard.html")
+        obj=DisasterTable.objects.all()
+        usercount=  UserTable.objects.count()
+        total_amount = DonationTable.objects.aggregate(total=Sum('Amount'))['total']
+        total_amount = total_amount or 0
+        ngocount = NGOTable.objects.count()        
+        return render(request, "ngo/ngodashboard.html",{'val':obj,'usercount':usercount,'total_amount':total_amount,'ngocount':ngocount})
+
     
 class Viewdisaster(View):
     def get(self, request):
@@ -406,7 +415,7 @@ class task_delete(View):
     def get(self, request, id):
         obj = TaskTable.objects.get(id=id)
         obj.delete()
-        return HttpResponse('''<script>alert("Deleted successfully");window.location="/view_task_ngo"</script>''')
+        return HttpResponse('''<script>alert("Deleted successfully");window.location="/viewtask"</script>''')
 
 # Create View
 class CreateResourcelimitView(View):

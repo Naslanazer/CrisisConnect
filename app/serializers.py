@@ -64,7 +64,7 @@ class SkillTableSerializer(serializers.ModelSerializer):
 class TaskTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskTable
-        fields = ['Task_no', 'Task', 'Date', 'Status']
+        fields = ['id','Task_no', 'Task', 'Date', 'Status']
 
 class TaskTableSerializer1(serializers.ModelSerializer):
     class Meta:

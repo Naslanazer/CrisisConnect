@@ -1,5 +1,152 @@
 {% extends 'administrator/base.html'%}
 {% block body %}
+<style>
+    .cards{
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+    }
+    .card{
+        padding: 40px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .card h1{
+        color: rgb(27, 27, 27);
+        font-size: 2rem;
+    }
+    .card h2{
+        color: #c69a5a;
+    }
+</style>
+
+<div class="dash">
+    <div class="cards">
+        <div class="card">
+            <h1>Users</h1>
+            <h2>{{usercount}}</h2>
+        </div>
+
+        <div class="card">
+            <h1>NGO</h1>
+            <h2>{{ngocount}}</h2>
+        </div>
+
+        <div class="card">
+            <h1>Total Donations</h1>
+            <h2>{{total_amount}}+</h2>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<div class="dash-cnt mt-4">
+    <div class="weather">
+      <div class="tbl-div">
+        <h2>weather Updates</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Affected place</th>
+              <th>weather updates</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in val %}
+            <tr>
+              <td>{{i.Location}}</td>
+              <td class="d-flex">
+                <div class="thermometer-container">
+                  <div class="thermometer-level" data-temperature="{{i.Weather}}"></div>
+                </div>
+                <div class="temperature-value"><span>°C</span></div>
+              </td>
+              <td>{{i.Details}}</td>
+
+            </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<script>
+    // Function to dynamically add weather icons
+    function updateWeatherIcons() {
+      const weatherCells = document.querySelectorAll('.weather-cell');
+
+      weatherCells.forEach(cell => {
+        const weather = cell.getAttribute('data-weather');
+        let iconHTML = '';
+
+        switch (weather) {
+          case 'rainy':
+            iconHTML = '<span class="weather-icon rainy">🌧️ heavy rain</span>';
+            break;
+          case 'sunny':
+            iconHTML = '<span class="weather-icon sunny">☀️ sunny</span>';
+            break;
+          case 'cloudy':
+            iconHTML = '<span class="weather-icon cloudy">☁️ cloudy</span>';
+            break;
+          default:
+            iconHTML = '<span class="weather-icon">❓</span>';
+            break;
+        }
+
+        cell.innerHTML = iconHTML;
+      });
+    }
+
+    // Call the function to update the icons
+    updateWeatherIcons();
+
+
+    // JavaScript code to update thermometer and humidity levels for each user
+ document.addEventListener('DOMContentLoaded', function() {
+  const thermometerContainers = document.querySelectorAll('.thermometer-container');
+
+  thermometerContainers.forEach((container, index) => {
+    const thermometerLevel = container.querySelector('.thermometer-level');
+    const temperatureValue = container.parentNode.querySelector('.temperature-value');
+    const temperature = parseInt(thermometerLevel.getAttribute('data-temperature'));
+    updateThermometerLevel(temperature, thermometerLevel, temperatureValue);
+  });
+});
+
+function updateThermometerLevel(temperature, thermometerLevel, temperatureValue) {
+  const maxHeight = 50; // Maximum height of thermometer level
+  const minHeight = 0; // Minimum height of thermometer level
+  const height = ( (temperature / 100) * (maxHeight - minHeight) + minHeight);
+
+  thermometerLevel.style.height = height + '%';
+
+  // Change color based on temperature value
+  if (temperature >= 40) {
+    thermometerLevel.style.backgroundColor = 'red';
+  }else if (temperature >= 35){
+    thermometerLevel.style.backgroundColor = 'yellow';
+  }else if (temperature >= 20){
+    thermometerLevel.style.backgroundColor = 'green';
+  }else if (temperature >=0){
+    thermometerLevel.style.backgroundColor = '#1077e4';
+  }else{
+    thermometerLevel.style.backgroundColor = 'blue';
+  }
+   
+
+  // Update temperature value dynamically
+  temperatureValue.textContent = temperature + '°C';
+}
+</script>
+
+
 
 {% endblock %}
          

@@ -65,18 +65,25 @@ class signup(View):
 class LoginPage(View):
     def get(self, request):
         return render(request, "login.html")
-    def post(self,request):
-        username= request.POST['username']
-        password= request.POST['password']
-        login_obj= LoginTable.objects.get(Username=username, Password=password)
-        request.session["loginid"]=login_obj.id
 
-        if login_obj.Type =="admin": 
-            return HttpResponse('''<script>alert("Logged in successfully");window.location="/admindashboard"</script>''')
-        elif login_obj.Type =="ngo": 
-            request.session['login_id']=login_obj.id
-            return HttpResponse('''<script>alert("Logged in successfully");window.location="/ngodashboard"</script>''')
-        
+    def post(self, request):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            login_obj = LoginTable.objects.get(Username=username, Password=password)
+            request.session["loginid"] = login_obj.id  # Store user session
+
+            if login_obj.Type == "admin":
+                return HttpResponse('''<script>alert("Logged in successfully"); window.location="/admindashboard";</script>''')
+            elif login_obj.Type == "ngo":
+                request.session['login_id'] = login_obj.id
+                return HttpResponse('''<script>alert("Logged in successfully"); window.location="/ngodashboard";</script>''')
+
+        except LoginTable.DoesNotExist:
+            return HttpResponse('''<script>alert("Incorrect username or password"); window.location="/login";</script>''')
+
+        return render(request, "login.html")        
 class Viewcomplaints(View):
     def get(self, request):
         obj = ComplaintTable.objects.filter(Reply__isnull=True)  # For NULL values
@@ -597,8 +604,11 @@ class ResourceAPI(APIView):
         return Response(serializer.data)
     def post(self, request):
         user_serializer=ResourceTableSerializer(data=request.data)
+        print('----->', request.data)
+        user_obj = LoginTable.objects.get(id=request.data.get('LOGIN'))
+        cat = Resourcelimit.objects.get(resourcecategory=request.data.get('Name'))
         if user_serializer.is_valid():
-            user_serializer.save()
+            user_serializer.save(LOGIN=user_obj, Name=cat)
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

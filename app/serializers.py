@@ -44,7 +44,7 @@ class NGOTableSerializer(serializers.ModelSerializer):
 class ResourceTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResourceTable
-        fields = ['LOGIN','Name', 'Quantity', 'Details', 'Date']
+        fields = ['Quantity', 'Details', 'Date']
 
 class Resourcelimitserializer(serializers.ModelSerializer):
     class Meta:

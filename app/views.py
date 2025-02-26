@@ -336,28 +336,47 @@ class editNGODisaster(View):
             return HttpResponse('''<script>alert(" successfully");window.location="/Viewdisasterdata"</script>''')
         return render(request, "ngo/Viewdisasterdata.html")
 
-
 class addResources(View):
-    # def get(self, request):
-    #     return render(request, "ngo/add_resources.html")
     def post(self, request):
-        loginid= LoginTable.objects.get(id=request.session.get("loginid"))
-        print(request.session.get("loginid"))
+        print('----------->', request.POST)
+        loginid = LoginTable.objects.get(id=request.session.get("loginid"))
+        cat_obj = Resourcelimit.objects.get(id=request.POST['Name'])
+        limit = int(cat_obj.resourcelimit)
+        print("-------limit---> ", limit)
 
-        form= resourcesForm(request.POST)
-        if form.is_valid():
-            print("hhhhqqq")
-            c=form.save(commit=False)
-            c.LOGIN=loginid
-            c.save()
-            return HttpResponse('''<script>alert("successfully");window.location="/Viewresource"</script>''')
-        obj=ResourceTable.objects.filter(LOGIN__id=request.session.get('loginid')).all()
-        return render(request, "ngo/ViewResource.html",{'val':obj})
+        # Calculate the current total resources
+        sum1 = 0
+        resource_count = ResourceTable.objects.filter(Name_id=cat_obj.id)
+        
+        # Summing up the relevant field (e.g., quantity)
+        for i in resource_count:
+            sum1 = int(sum1) + int(i.Quantity)
+
+        print("---sum----->", sum1)    
+        total =sum1+int(request.POST['Quantity'])
+        print("---------TOTl---------->", total)
+
+        # Check if adding another resource exceeds the limit
+        if total < limit:
+            form = resourcesForm(request.POST)
+            if form.is_valid():
+                print("Form is valid")
+                c = form.save(commit=False)
+                c.LOGIN = loginid
+                c.Name = cat_obj
+                c.save()
+                return HttpResponse('''<script>alert("Successfully added!");window.location="/Viewresource"</script>''')
+            
+            obj = ResourceTable.objects.filter(LOGIN__id=request.session.get('loginid')).all()
+            return HttpResponse('''<script>alert("Error saving resource");window.location="/Viewresource"</script>''')
+        else:
+            return HttpResponse('''<script>alert("Limit exceeded");window.location="/Viewresource"</script>''')
  
 class ViewResources(View):
     def get(self, request):
         obj=ResourceTable.objects.filter(LOGIN__id=request.session.get('loginid')).all()
-        return render(request, "ngo/ViewResource.html",{'val':obj})
+        obj1 = Resourcelimit.objects.all()
+        return render(request, "ngo/ViewResource.html",{'val':obj, 'val1': obj1})
 class Dlt_Resources(View):
     def get(self, request, id):
         obj = ResourceTable.objects.get(id=id)
@@ -416,6 +435,15 @@ class assign_task(View):
         obj1.TASK = TaskTable.objects.get(id=request.session['task_id'])
         obj1.USER = UserTable.objects.get(id=id)
         obj1.Status = "assigned"
+        obj1.save()
+        return HttpResponse('''<script>alert("Updated successfully");window.location="/view_task_ngo"</script>''')        
+class TaskCompleted(View):
+    def get(self, request, id):
+        obj = TaskTable.objects.get(id=id)
+        obj.Status="completed"
+        obj.save()
+        obj1 =  AssignTable.objects.get(TASK_id=obj.id)
+        obj1.Status = "completed"
         obj1.save()
         return HttpResponse('''<script>alert("Updated successfully");window.location="/view_task_ngo"</script>''')        
 class task_delete(View):
@@ -660,17 +688,19 @@ class AssignAPI(APIView):
         return Response(status=status.HTTP_200_OK)
 
 class TaskAPI(APIView):
-    def get(self, request):
+    def get(self, request, lid):
+        print('------------->')
         response_dict = {}
 
         # Fetch all UserTable objects
-        user_table_objects = TaskTable.objects.all()
+        user_table_objects = AssignTable.objects.filter(USER__LOGIN_id=lid)
 
         # Serialize the data
         serializer = TaskTableSerializer(user_table_objects, many=True)
         print(serializer.data)
         # Return the serialized data
         return Response(serializer.data)
+    
 class TaskupdateAPI(APIView):
     def put(self, request):
         id = request.data.get("task_id")

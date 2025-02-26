@@ -24,10 +24,14 @@
                     <td>{{i.Task}}</td>
                     <td>{{i.Date}}</td>
                     <td>{{i.Time}}</td>
-                    <td>{{i.Status}}</td>
+                    
                     <td>
-                      {% if i.Status == 'pending' %}
+                    {% if i.Status == 'pending' %}
                     <a href="/view_volunteer/{{i.id}}" class="btn btn-danger">Assign</a>
+                    {% elif i.Status == 'verify' %}
+                    <a href="/TaskCompleted/{{i.id}}" class="btn btn-danger">Completed</a>
+                    {% else %}
+                    {{i.Status}}
                     {% endif %}
                   </td>
                 </tr>

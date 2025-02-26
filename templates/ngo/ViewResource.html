@@ -25,14 +25,14 @@
           <tbody>
             {% for i in val %}
             <tr>
-              <td>{{i.Name}}</td>
+              <td>{{i.Name.resourcecategory}}</td>
               <td> {{i.Details}}</td>
               <td>{{i.Quantity}} </td>
               <td>{{i.Date}}</td>
               <td> <a class="btn btn-warning" href="/edit_ngoResource/{{i.id}}">EDIT</a>
-                <a class="btn btn-danger" href="/dlt_resource/{{i.id}}"
+                <!-- <a class="btn btn-danger" href="/dlt_resource/{{i.id}}"
                   onclick="return confirm('are you sure?')">DELETE</a>
-              </td>
+              </td> -->
             </tr>
             {%endfor%}
           </tbody>
@@ -51,11 +51,15 @@
             </div>
             <div class="modal-body">
                 <form id="resourceForm" action="/addResource"  method="post">
-                  {%csrf_token%}
                     <!-- Name -->
                     <div class="mb-3">
                       <label for="eventName" class="form-label">Name</label>
-                      <input type="text" class="form-control" name="Name">
+                      <select name="Name">
+                        {% for i in val1 %}
+                        <option value="{{ i.id }}">{{ i.resourcecategory }}</option>
+                        {% endfor %}
+                      </select>
+                      <br>
                       <label for="eventName" class="form-label">details</label>
                       <input type="text" class="form-control" name="Details">
                       <label for="eventName" class="form-label">quantity</label>
@@ -65,7 +69,7 @@
                 </form>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary" form="resourceForm">Submitgfgf</button>
+                  <button type="submit" class="btn btn-primary" form="resourceForm">Submit</button>
               </div>
             </div>
            

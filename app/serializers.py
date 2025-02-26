@@ -62,9 +62,21 @@ class SkillTableSerializer(serializers.ModelSerializer):
         fields = ['skill']
 
 class TaskTableSerializer(serializers.ModelSerializer):
+    Task_no=serializers.CharField(source='TASK.Task')
+    DATE=serializers.CharField(source='TASK.Date')
+    Task=serializers.CharField(source='TASK.Task')
     class Meta:
         model = TaskTable
         fields = ['id','Task_no', 'Task', 'Date', 'Status']
+
+class TaskTableSerializer(serializers.ModelSerializer):
+    Task_no = serializers.CharField(source='TASK.Task_no')
+    Task = serializers.CharField(source='TASK.Task')
+    Date = serializers.DateTimeField(source='TASK.Date')
+
+    class Meta:
+        model = AssignTable
+        fields = ['id', 'Task_no', 'Task', 'Date', 'Status', 'AssignDate']
 
 class TaskTableSerializer1(serializers.ModelSerializer):
     class Meta:

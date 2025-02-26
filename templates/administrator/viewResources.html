@@ -24,8 +24,10 @@
                   <td> {{i.Details}}</td>
                   <td>{{i.Quantity}} </td>
                   <td>{{i.Date}}</td>
-                  <td><a href="dlt_resource/{{i.id}}" class="btn btn-danger" onclick="return confirm('are you sure to delete this user?')">DELETE</a>
-                     <a href="editresource/{{i.id}}" class="btn btn-warning">EDIT</a></td>
+                  <td>
+                    <!-- <a href="dlt_resource/{{i.id}}" class="btn btn-danger" onclick="return confirm('are you sure to delete this user?')">DELETE</a> -->
+                     <a href="editresource/{{i.id}}" class="btn btn-warning">EDIT</a>
+                    </td>
                 </tr>
                 {%endfor%}
               </tbody>

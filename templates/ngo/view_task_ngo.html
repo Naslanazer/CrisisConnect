@@ -30,6 +30,10 @@
                     <a href="/view_volunteer/{{i.id}}" class="btn btn-danger">Assign</a>
                     {% elif i.Status == 'verify' %}
                     <a href="/TaskCompleted/{{i.id}}" class="btn btn-danger">Completed</a>
+                    {% elif i.Status == 'assigned' %}
+                    <a href="/TaskCompleted/{{i.id}}" class="btn btn-danger">Assigned</a>
+                    {% elif i.Status == 'completed' %}
+                    <a href="/TaskCompleted/{{i.id}}" class="btn btn-danger">Completed</a>
                     {% else %}
                     {{i.Status}}
                     {% endif %}

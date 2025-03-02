@@ -1,40 +1,51 @@
-
 {% extends 'ngo/base.html' %}
-{%block body%}
+{% block body %}
 <!-- Main Content -->
 <div class="tbl-div">
   <div class="content container-fluid">
-      <div class="container-fluid mt-4">
-          <h2 class="mb-4">Donation and Transactions</h2>
-          <div class="table-responsive">
-            <table class="table user-table table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Phone</th>
-                  <th>Email</th>
-                  <th>Amount</th>
-                  <th>Description</th>
-                  <th>date</th>
-                  <!-- <th></th> -->
-                </tr>
-              </thead>
-              <tbody>
-                {%for i in val%}
-          <tr>
-            <td>{{i.USER.Name}} </td>
-            <td>{{i.USER.Phone}} </td>
-            <td>{{i.USER.Email}} </td>
-            <td>{{i.Amount}} </td>
-            <td>{{i.Description}} </td>
-            <td>{{i.Date}}</td>
-            <!-- <td><a href="delete_donation_ngo/{{i.id}}" class="btn btn-danger" onclick="return confirm('are you sure to delete this user?')">DELETE</a></td> -->
-          </tr>
-          {%endfor%}
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div class="container-fluid mt-4">
+      <h2 class="mb-4">Donation and Transactions</h2>
+      <div class="table-responsive">
+        <table class="table user-table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Amount</th>
+              <th>Description</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="transactionTable">
+            {% for i in val %}
+            <tr>
+              <td>{{ i.USER.Name }}</td>
+              <td>{{ i.USER.Phone }}</td>
+              <td>{{ i.USER.Email }}</td>
+              <td class="amount">{{ i.Amount }}</td>
+              <td>{{ i.Description }}</td>
+              <td>{{ i.Date }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- Total Amount Display -->
+      <p class="fw-bold mt-3">Total Amount: <span id="totalAmount">0</span></p>
+    </div>
   </div>
 </div>
-{%endblock%}
+
+<!-- JavaScript for calculating the total amount -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let total = 0;
+    document.querySelectorAll(".amount").forEach(function (cell) {
+      total += parseFloat(cell.textContent) || 0; // Convert text to number, handle NaN
+    });
+    document.getElementById("totalAmount").textContent = total.toFixed(2); // Display with 2 decimal places
+  });
+</script>
+
+{% endblock %}

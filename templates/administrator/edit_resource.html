@@ -7,7 +7,7 @@
     {%csrf_token%}
       <div class="mb-3">
           <label for="eventName" class="form-label">Name</label>
-          <input type="text" class="form-control" name="Name" value="{{c.Name}}">
+          <input type="text" class="form-control" name="Name" value="{{c.Name.resourcecategory}}">
           <label for="eventName" class="form-label">details</label>
           <input type="text" class="form-control" name="Details" value="{{c.Details}}">
           <label for="eventName" class="form-label">quantity</label>

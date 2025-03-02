@@ -139,10 +139,10 @@ class ViewResource(View):
 class editresource(View):
     def get(self, request,id):
         c= ResourceTable.objects.get(id=id)
-        print(c)
         return render(request, "administrator/edit_resource.html",{'c':c, 'date': str(c.Date)})
     def post(self, request,id):
         obj = ResourceTable.objects.get(id=id)
+        print('---------------------------',obj)
         form = resourcesForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
@@ -343,10 +343,12 @@ class addResources(View):
         cat_obj = Resourcelimit.objects.get(id=request.POST['Name'])
         limit = int(cat_obj.resourcelimit)
         print("-------limit---> ", limit)
+        print("name", cat_obj)
 
         # Calculate the current total resources
         sum1 = 0
         resource_count = ResourceTable.objects.filter(Name_id=cat_obj.id)
+        print(resource_count)
         
         # Summing up the relevant field (e.g., quantity)
         for i in resource_count:
@@ -440,6 +442,7 @@ class assign_task(View):
 class TaskCompleted(View):
     def get(self, request, id):
         obj = TaskTable.objects.get(id=id)
+        print('------------->', obj.id)
         obj.Status="completed"
         obj.save()
         obj1 =  AssignTable.objects.get(TASK_id=obj.id)
@@ -631,13 +634,37 @@ class ResourceAPI(APIView):
         # Return the serialized data
         return Response(serializer.data)
     def post(self, request):
-        user_serializer=ResourceTableSerializer(data=request.data)
+        user_serializer = ResourceTableSerializer(data=request.data)
         print('----->', request.data)
-        user_obj = LoginTable.objects.get(id=request.data.get('LOGIN'))
-        cat = Resourcelimit.objects.get(resourcecategory=request.data.get('Name'))
+
+        try:
+            user_obj = LoginTable.objects.get(id=request.data.get('LOGIN'))
+            cat = Resourcelimit.objects.get(resourcecategory=request.data.get('Name'))
+        except LoginTable.DoesNotExist:
+            return Response({"error": "Invalid LOGIN ID"}, status=status.HTTP_400_BAD_REQUEST)
+        except Resourcelimit.DoesNotExist:
+            return Response({"error": "Invalid Resource Category"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Fetch total quantity already donated for this category
+        total_quantity = ResourceTable.objects.filter(Name=cat).exclude(Quantity=None).values_list('Quantity', flat=True)
+        total_quantity = sum(int(q) for q in total_quantity if q.isdigit())  # Convert to int safely
+        print('total_quantity', total_quantity)
+        new_quantity = int(request.data.get('Quantity', 0))
+        resource_limit = int(cat.resourcelimit) if cat.resourcelimit else 0
+        print('resource_limit', resource_limit)
+        print('new_quantity', new_quantity)
+        # Check if adding the new quantity exceeds the resource limit
+        if total_quantity + new_quantity > resource_limit:
+            return Response(
+                {"message": "Resource limit reached!"},
+                status=status.HTTP_200_OK
+            )
+        print('resource_limit', resource_limit)
+        # If limit not reached, save the resource
         if user_serializer.is_valid():
             user_serializer.save(LOGIN=user_obj, Name=cat)
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class DisasterAPI(APIView):
@@ -704,12 +731,13 @@ class TaskAPI(APIView):
 class TaskupdateAPI(APIView):
     def put(self, request):
         id = request.data.get("task_id")
-        print(id)
+        print('id',id)
+        print('--------------', request.data)
         # Fetch all UserTable objects
         user_table_objects = TaskTable.objects.filter(id=id).first()
 
         # Serialize the data
-        serializer = TaskTableSerializer1(user_table_objects, data=request.data ,partial=True)
+        serializer = TaskTableSerializer1(user_table_objects, data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -748,10 +776,11 @@ class DonationSerializer(serializers.ModelSerializer):
 from django.db.models import Sum
 class Viewvolunteerscount(APIView):
     def get(self,request):
-        v=UserTable.objects.count()
+        v=LoginTable.objects.filter(Type='volunteer').count()
         print(v)
         total_amount = DonationTable.objects.aggregate(total=Sum('Amount'))['total']
         total_amount = total_amount or 0  # Handle None if there are no donations
+        print(total_amount)
         return Response({"total_donation": total_amount,"volunteercount":v}, status=status.HTTP_200_OK)
        
 
